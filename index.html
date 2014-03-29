@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Node-doc by Thomasdezeeuw</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/Thomasdezeeuw/node-doc">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/Thomasdezeeuw/node-doc/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/Thomasdezeeuw/node-doc/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Node-doc</h1>
+          <p>Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/Thomasdezeeuw">Thomasdezeeuw</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="node-doc" class="anchor" href="#node-doc"><span class="octicon octicon-link"></span></a>Node doc</h1>
+
+<p>Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Requires Node.js and run <code>npm install -g node-doc</code></p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<ol>
+<li>Install Node doc, see above.</li>
+<li>Open you terminal of choice an go to your code.</li>
+<li>run <code>nodedoc SOURCE_DIR</code>, for example <code>nodedoc lib</code>.</li>
+<li>Look into the <code>doc</code> folder and see the result.</li>
+</ol><h2>
+<a name="tags" class="anchor" href="#tags"><span class="octicon octicon-link"></span></a>Tags</h2>
+
+<h3>
+<a name="access" class="anchor" href="#access"><span class="octicon octicon-link"></span></a>Access</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * Private access.</span>
+<span class="cm"> * @access private</span>
+<span class="cm"> * or</span>
+<span class="cm"> * @private</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">privateFunction</span> <span class="p">()</span> <span class="p">{}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Public access.</span>
+<span class="cm"> * @access public</span>
+<span class="cm"> * or</span>
+<span class="cm"> * @public</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">publicFunction</span> <span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="callback" class="anchor" href="#callback"><span class="octicon octicon-link"></span></a>Callback</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * Specifiy an callback</span>
+<span class="cm"> * @callback name Description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @callback myCallback I call it, whenever I like to.</span>
+<span class="cm"> *                      Also, it accept multiline descriptions.</span>
+<span class="cm"> * @param error {Error} An error object, if an error happend.</span>
+<span class="cm"> * @param result {Object} The result of the async stuff.</span>
+<span class="cm"> */</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @title Do async</span>
+<span class="cm"> * @desc do some async stuff</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param stuff {Object} Object with a buch of stuff.</span>
+<span class="cm"> * @param cb {myCallback} The callback I'll call.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">doAsync</span><span class="p">(</span><span class="nx">stuff</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// do async stuff</span>
+
+  <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+
+<h3>
+<a name="constant" class="anchor" href="#constant"><span class="octicon octicon-link"></span></a>Constant</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * A constant variable.</span>
+<span class="cm"> * @constant name {Type} Description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @constant MY_CONSTANT {Number} My constant number.</span>
+<span class="cm"> */</span>
+<span class="kd">var</span> <span class="nx">MY_CONSTANT</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+
+<h3>
+<a name="constructor" class="anchor" href="#constructor"><span class="octicon octicon-link"></span></a>Constructor</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * Indicate that a function is a constructor.</span>
+<span class="cm"> * @constructor</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">Constructor</span> <span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="deprecated" class="anchor" href="#deprecated"><span class="octicon octicon-link"></span></a>Deprecated</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * Indicate that a function is deprecated.</span>
+<span class="cm"> * @deprecated</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">someOldFunction</span> <span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="desc" class="anchor" href="#desc"><span class="octicon octicon-link"></span></a>Desc</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * @desc My description,</span>
+<span class="cm"> *       accept multiline.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">describeMe</span> <span class="p">()</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * Specify an example (one is also auto generated).</span>
+<span class="cm"> * @example your example,</span>
+<span class="cm"> *          accepts multiline comments.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @example</span>
+<span class="cm"> * var parser = require('parser');</span>
+<span class="cm"> * var doc = parser(input, output, 'markdown');</span>
+<span class="cm"> * // or don't save it</span>
+<span class="cm"> * var doc = parser(input, 'markdown');</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">parser</span> <span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="nx">output</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="param" class="anchor" href="#param"><span class="octicon octicon-link"></span></a>Param</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * A function parameter.</span>
+<span class="cm"> * @param name {Type} Description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @param param1</span>
+<span class="cm"> * @param param2 {String}</span>
+<span class="cm"> * @param param3 My parameter.</span>
+<span class="cm"> * @param param4 {Object} My parameter.</span>
+<span class="cm"> * @param param4.subparameter {String} Property of parameter.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">doStuff</span> <span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">,</span> <span class="nx">param3</span><span class="p">,</span> <span class="nx">param4</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+
+<h3>
+<a name="return" class="anchor" href="#return"><span class="octicon octicon-link"></span></a>Return</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * What a function returns.</span>
+<span class="cm"> * @return {Type} Description.</span>
+<span class="cm"> * or</span>
+<span class="cm"> * @returns {Type} Description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @return {Object} My return object.</span>
+<span class="cm"> * @return .subparameter {String} Property of the return object.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">returnObject</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">subparameter</span><span class="o">:</span> <span class="s1">'Hi'</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="throws" class="anchor" href="#throws"><span class="octicon octicon-link"></span></a>Throws</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * An error that a function might throw</span>
+<span class="cm"> * @throw Error description.</span>
+<span class="cm"> * or</span>
+<span class="cm"> * @throws Error description.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @throw You broke me! This happend because..?</span>
+<span class="cm"> *        I don't know.</span>
+<span class="cm"> */</span>
+<span class="kd">function</span> <span class="nx">throwError</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'You broke me! This happend because..? I don\'t know.'</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="title" class="anchor" href="#title"><span class="octicon octicon-link"></span></a>Title</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * @title My title</span>
+<span class="cm"> */</span>
+</pre></div>
+
+<h3>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>Todo</h3>
+
+<div class="highlight highlight-js"><pre><span class="cm">/**</span>
+<span class="cm"> * When we still need to do some stuff, globally or per function.</span>
+<span class="cm"> * @todo finish this.</span>
+<span class="cm"> * or</span>
+<span class="cm"> * @todo</span>
+<span class="cm"> * - finish..</span>
+<span class="cm"> * - this.</span>
+<span class="cm"> *</span>
+<span class="cm"> * example:</span>
+<span class="cm"> * @todo Make better documentation.</span>
+<span class="cm"> * @todo</span>
+<span class="cm"> * - Write some more tests.</span>
+<span class="cm"> * - Make this work.</span>
+<span class="cm"> * - Then make it faster.</span>
+<span class="cm"> */</span>
+</pre></div>
+
+<h2>
+<a name="want-more-examples" class="anchor" href="#want-more-examples"><span class="octicon octicon-link"></span></a>Want more examples?</h2>
+
+<p>If you want more examples, check the code in the lib directory. Because of course I document my own code :).</p>
+
+<h2>
+<a name="want-to-see-the-result" class="anchor" href="#want-to-see-the-result"><span class="octicon octicon-link"></span></a>Want to see the result?</h2>
+
+<p>In the doc directory you can see the result of documenting this code.</p>
+
+<h2>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>Run tests with <code>npm test</code>, requires Mocha to be installed.</p>
+
+<h2>
+<a name="coverage" class="anchor" href="#coverage"><span class="octicon octicon-link"></span></a>Coverage</h2>
+
+<p>I try to get 100% coverage, you can see it for yourself with <code>npm run-script coverage</code>, requires Istanbul to be installed.</p>
+
+<h2>
+<a name="roadmap" class="anchor" href="#roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h2>
+
+<ul>
+<li>Make a option to convert to Github.io pages</li>
+<li>Follow module.exports for index (/readme) docs</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
