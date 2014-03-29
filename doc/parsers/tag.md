@@ -1,6 +1,8 @@
 # Tag
 
-### Parse Tag
+### Parse Tag (Function)
+
+> Access: public
 
 Parse a single tag.
 
@@ -22,7 +24,9 @@ var parsetag = parseTag(tag);
 | return.type | String | The type of tag. |
 | return.value |  | Information about the tag. |
 
-### Default Parser
+### Default Parser (Function)
+
+> Access: private
 
 Default parser for tags, follows: @tag name {Type} Description.
 

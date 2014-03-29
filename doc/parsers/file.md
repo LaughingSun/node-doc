@@ -1,6 +1,8 @@
 # File
 
-### Parse file
+### Parse file (Function)
+
+> Access: public
 
 Parse an file into an array of comment objects.
 
@@ -21,7 +23,9 @@ var parsefile = parseFile(lines, pv);
 | ---- | ---- | ---------- |
 | return | Array | All comments in an file in objects. |
 
-### Detect code information
+### Detect code information (Function)
+
+> Access: private
 
 Get information from lines of code in an array.
 
@@ -43,7 +47,9 @@ var detectcodeinfo = detectCodeInfo(lines);
 | return.type | String | Function or variable type. |
 | return.name | String | Name of the function or variable. |
 
-### Detect variable type
+### Detect variable type (Function)
+
+> Access: private
 
 Detect the type of the variable.
 

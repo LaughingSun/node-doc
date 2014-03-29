@@ -1,6 +1,8 @@
 # Comment
 
-### Comment parser
+### Comment parser (Function)
+
+> Access: public
 
 Parses an array of comment lines.
 

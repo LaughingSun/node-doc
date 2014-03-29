@@ -1,6 +1,8 @@
 # Markdown
 
-### To Markdown
+### To Markdown (Function)
+
+> Access: public
 
 Parses a object into Markdown (Github flavored).
 
@@ -21,7 +23,9 @@ var tomarkdown = toMarkdown(title, comments);
 | ---- | ---- | ---------- |
 | return | String | String with markdown. |
 
-### Create table
+### Create table (Function)
+
+> Access: private
 
 Parses params or return object and it's properties into a markdown table.
 

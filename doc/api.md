@@ -1,6 +1,8 @@
 # Api
 
-### Parser
+### Parser (Function)
+
+> Access: public
 
 Parses a file or a whole directory to an documententation. This can be outputted in an object or in Markdown (Github flavored).
 
@@ -24,7 +26,9 @@ var parser = parser(input, [output], [options]);
 | ---- | ---- | ---------- |
 | return | Object|String | Object or string (Markdown) with the results. |
 
-### Is dir
+### Is dir (Function)
+
+> Access: private
 
 Check if file or dir is an directory.
 
@@ -44,7 +48,9 @@ var isdir = isDir(input);
 | ---- | ---- | ---------- |
 | return | Boolean | Wether the input is a directory or not. |
 
-### Get files recursive
+### Get files recursive (Function)
+
+> Access: private
 
 Get all files in an directory recursive.
 
@@ -64,7 +70,9 @@ var getfilesrecursive = getFilesRecursive(dir);
 | ---- | ---- | ---------- |
 | return | Array | Array with files. |
 
-### To Markdown recursive
+### To Markdown recursive (Function)
+
+> Access: private
 
 Convert an object to markdown recursively.
 
@@ -84,7 +92,9 @@ var tomarkdownrecursive = toMarkdownRecursive(doc);
 | ---- | ---- | ---------- |
 | return | Object | Object with markdown strings. |
 
-### Save file recursive
+### Save file recursive (Function)
+
+> Access: private
 
 Save a file recursively.
 
@@ -100,7 +110,9 @@ saveFileRecursive(root, ext, doc);
 | ext | String | False | Extention to use. |
 | doc | Object | False | Files with object keys as names. |
 
-### Recursive check
+### Recursive check (Function)
+
+> Access: private
 
 Check if it's an recursive object.
 
