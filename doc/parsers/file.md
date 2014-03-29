@@ -5,7 +5,7 @@
 Parse an file into an array of comment objects.
 
 ```js
-var parsefile = parseFile(lines);
+var parsefile = parseFile(lines, pv);
 ```
 
 #### Params
@@ -13,6 +13,7 @@ var parsefile = parseFile(lines);
 | Name | Type | Optional | Desciption |
 | ---- | ---- | -------- | ---------- |
 | lines | Array | False | An array of all lines of a file. |
+| pv | Boolean | False | Wether or not to show private comments. |
 
 #### Returns
 

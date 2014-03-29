@@ -5,7 +5,7 @@
 Parses a file or a whole directory to an documententation. This can be outputted in an object or in Markdown (Github flavored).
 
 ```js
-var parser = parser(input, [output], [result]);
+var parser = parser(input, [output], [options]);
 ```
 
 #### Params
@@ -14,7 +14,9 @@ var parser = parser(input, [output], [result]);
 | ---- | ---- | -------- | ---------- |
 | input | String | False | The directory of the source files get documention from. |
 | output | String | True | The directory to write the output to. |
-| result | String | True | The type of result wanted: object or markdown. |
+| options | Object | True | Object with options |
+| options.result | String | False | The type of result wanted: object or markdown. |
+| options.private | Boolean | False | Wether or not to show private comments. |
 
 #### Returns
 

@@ -44,15 +44,53 @@ describe('File parser', function () {
       ' /**',
       ' * @public',
       '*/',
-      'var MyFunction;'
+      'var myVar;'
     ]);
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
     comment.should.be.an.Object.and.have.properties('type', 'name', 'access');
     comment.type.should.equal('Undefined');
-    comment.name.should.equal('MyFunction');
+    comment.name.should.equal('myVar');
     comment.access.should.equal('public');
+  });
+
+  it('should not show private comments if private is undefined', function () {
+    var doc = fileParser([
+      ' /**',
+      ' * @private',
+      '*/',
+      'var myVar;'
+    ]);
+
+    doc.should.be.an.Array.and.have.lengthOf(0);
+  });
+
+  it('should not show private comments if private is false', function () {
+    var doc = fileParser([
+      ' /**',
+      ' * @private',
+      '*/',
+      'var myVar;'
+    ], false);
+
+    doc.should.be.an.Array.and.have.lengthOf(0);
+  });
+
+  it('should show private comments if private is true', function () {
+    var doc = fileParser([
+      ' /**',
+      ' * @private',
+      '*/',
+      'var myVar;'
+    ], true);
+
+    doc.should.be.an.Array.and.have.lengthOf(1);
+    var comment = doc[0];
+    comment.should.be.an.Object.and.have.properties('type', 'name', 'access');
+    comment.type.should.equal('Undefined');
+    comment.name.should.equal('myVar');
+    comment.access.should.equal('private');
   });
 
   it('should detect prototype correctly', function () {

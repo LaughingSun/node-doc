@@ -68,7 +68,20 @@ describe('Api', function () {
         ' * @constant',
         ' * @deprecated People are tall these days.',
         ' */',
-        'var MAX_LENGTH = 5;'
+        'var MAX_LENGTH = 5;',
+        '',
+        '/**',
+        ' * @constant {Number}',
+        ' * @private',
+        ' */',
+        'var MIN_LENGTH = 0.5;'
+      ].join('\n'),
+      'private.js': [
+        '/**',
+        ' * @constant {Number}',
+        ' * @private',
+        ' */',
+        'var PRIVATE_VAR = 0.5;'
       ].join('\n')
     },
     'empty-dir': {},
@@ -139,13 +152,30 @@ describe('Api', function () {
     checkConstantSubJson(doc.subConstant);
   });
 
+  it('should show private comments with private true', function () {
+    var input = dir
+      , output = __dirname + '/doc3';
+
+    parser(input, output, {private: true});
+
+    var doc = {
+      'person': JSON.parse(fs.readFileSync(output + '/person.json', 'utf-8')),
+      'constant': JSON.parse(fs.readFileSync(output + '/constant.json', 'utf-8')),
+      'subConstant': JSON.parse(fs.readFileSync(output + '/dir/constant.json', 'utf-8'))
+    };
+
+    checkConstantJson(doc.constant)
+    checkPersonJson(doc.person);
+    checkConstantSubJson(doc.subConstant, true);
+  });
+
   it('should parse a file and convert to markdown', function () {
-    var doc = parser(dir + 'person.js', 'markdown');
+    var doc = parser(dir + 'person.js', {result: 'markdown'});
     checkPersonMd(doc);
   });
 
   it('should parse all files in a directory and sub directory\'s and convert to markdown', function () {
-    var doc = parser(dir, 'markdown');
+    var doc = parser(dir, {result: 'markdown'});
 
     doc.should.be.an.Object.and.have.properties('person', 'constant', 'dir');
     doc.dir.should.be.an.Object.and.have.property('constant');
@@ -155,10 +185,22 @@ describe('Api', function () {
     checkConstantSubMd(doc.dir.constant);
   });
 
+  it('should parse all files in a directory and sub directory\'s and convert to markdown with private comments', function () {
+    var doc = parser(dir, {result: 'markdown', private: true});
+
+    doc.should.be.an.Object.and.have.properties('person', 'constant', 'dir');
+    doc.dir.should.be.an.Object.and.have.properties('constant', 'private');
+
+    checkPersonMd(doc.person);
+    checkConstantMd(doc.constant);
+    checkConstantSubMd(doc.dir.constant);
+    checkPrivateSubMd(doc.dir.private);
+  });
+
   it('should parse a file, convert to markdown and save it', function () {
     var output = __dirname + '/doc4/person.md';
 
-    parser(dir + 'person.js', output, 'markdown');
+    parser(dir + 'person.js', output, {result: 'markdown'});
 
     var doc = fs.readFileSync(output, 'utf-8');
     checkPersonMd(doc);
@@ -167,7 +209,7 @@ describe('Api', function () {
   it('should parse a file, convert to markdown and save it to directory', function () {
     var output = __dirname + '/doc5/';
 
-    parser(dir + 'person.js', output, 'markdown');
+    parser(dir + 'person.js', output, {result: 'markdown'});
 
     var doc = fs.readFileSync(output + 'person.md', 'utf-8');
     checkPersonMd(doc);
@@ -176,7 +218,7 @@ describe('Api', function () {
   it('should parse all files in a directory and sub directory\'s, convert to markdown and save it to directory', function () {
     var output = __dirname + '/doc6/';
 
-    parser(dir, output, 'markdown');
+    parser(dir, output, {result: 'markdown'});
 
     var doc = {
       'person': fs.readFileSync(output + 'person.md', 'utf-8'),
@@ -184,9 +226,29 @@ describe('Api', function () {
       'subConstant': fs.readFileSync(output + 'dir/constant.md', 'utf-8')
     };
 
+    fs.existsSync(output + 'dir/private.md').should.be.false;
+
     checkPersonMd(doc.person);
     checkConstantMd(doc.constant);
     checkConstantSubMd(doc.subConstant);
+  });
+
+  it('should parse all files in a dir, convert to md, save and show private', function () {
+    var output = __dirname + '/doc6/';
+
+    parser(dir, output, {result: 'markdown', private: true});
+
+    var doc = {
+      'person': fs.readFileSync(output + 'person.md', 'utf-8'),
+      'constant': fs.readFileSync(output + 'constant.md', 'utf-8'),
+      'subConstant': fs.readFileSync(output + 'dir/constant.md', 'utf-8'),
+      'subPrivate': fs.readFileSync(output + 'dir/private.md', 'utf-8')
+    };
+
+    checkPersonMd(doc.person);
+    checkConstantMd(doc.constant);
+    checkConstantSubMd(doc.subConstant, true);
+    checkPrivateSubMd(doc.subPrivate);
   });
 
   it('should throw if input is a dir and output a file', function () {
@@ -196,6 +258,15 @@ describe('Api', function () {
     (function () {
       parser(input, output);
     }).should.throw('Output need to be a directory if input is an directory');
+  });
+
+  it('should throw if result is not markdown or json', function () {
+    var input = dir
+      , output = __dirname + '/doc8/person.json';
+
+    (function () {
+      parser(dir, output, {result: 'notMarkdown'});
+    }).should.throw('Result can only be markdown or json');
   });
 });
 
@@ -266,8 +337,8 @@ function checkConstantJson (doc) {
   constant.deprecated.should.equal('People are tall these days.');
 }
 
-function checkConstantSubJson (doc) {
-  doc.should.be.an.Array.and.have.lengthOf(1);
+function checkConstantSubJson (doc, pv) {
+  doc.should.be.an.Array.and.have.lengthOf((!pv) ? 1 : 2);
 
   constant = doc[0];
   constant.should.be.an.Object.and.have.properties('type', 'name', 'constant', 'deprecated');
@@ -275,6 +346,14 @@ function checkConstantSubJson (doc) {
   constant.name.should.equal('MAX_LENGTH');
   constant.constant.should.be.true;
   constant.deprecated.should.equal('People are tall these days.');
+
+  if (!pv) return;
+  constant = doc[1];
+  constant.should.be.an.Object.and.have.properties('type', 'name', 'constant', 'access');
+  constant.type.should.equal('Number');
+  constant.name.should.equal('MIN_LENGTH');
+  constant.constant.should.be.true;
+  constant.access.should.equal('private');
 }
 
 function checkPersonMd (md) {
@@ -344,7 +423,7 @@ function checkConstantMd (md) {
   l[++i].should.equal('#### Constant');
 }
 
-function checkConstantSubMd (md) {
+function checkConstantSubMd (md, pv) {
   var l = md.split('\n')
     , i = 0;
   l[i].should.equal('# Constant');
@@ -352,6 +431,22 @@ function checkConstantSubMd (md) {
   l[++i].should.equal('### MAX_LENGTH');
   l[++i].should.equal('');
   l[++i].should.equal('> Warning: MAX_LENGTH is deprecated. People are tall these days.');
+  l[++i].should.equal('');
+  l[++i].should.equal('#### Constant');
+
+  if (!pv) return;
+  l[++i].should.equal('');
+  l[++i].should.equal('### MIN_LENGTH');
+  l[++i].should.equal('');
+  l[++i].should.equal('#### Constant');
+}
+
+function checkPrivateSubMd (md) {
+  var l = md.split('\n')
+    , i = 0;
+  l[i].should.equal('# Private');
+  l[++i].should.equal('');
+  l[++i].should.equal('### PRIVATE_VAR');
   l[++i].should.equal('');
   l[++i].should.equal('#### Constant');
 }
