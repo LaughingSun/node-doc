@@ -8,7 +8,7 @@ describe('File parser', function () {
       ' /**',
       ' * @constructor',
       '*/',
-      'function MyFunction () {',
+      'function MyConstructor () {',
       ' return this;',
       '}'
     ]);
@@ -16,17 +16,16 @@ describe('File parser', function () {
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
     comment.should.be.an.Object.and.have.properties('type', 'name', 'constructor');
-    comment.type.should.equal('Function');
-    comment.name.should.equal('MyFunction');
-    comment.constructor.should.be.true;
+    comment.type.should.equal('Constructor');
+    comment.name.should.equal('MyConstructor');
   });
 
-  it('should detect function correctly', function () {
+  it('should detect function correctly with var', function () {
     var doc = fileParser([
       ' /**',
       ' * @constructor',
       '*/',
-      'var MyFunction = function () {',
+      'var MyConstructor = function () {',
       ' return this;',
       '};'
     ]);
@@ -34,9 +33,8 @@ describe('File parser', function () {
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
     comment.should.be.an.Object.and.have.properties('type', 'name', 'constructor');
-    comment.type.should.equal('Function');
-    comment.name.should.equal('MyFunction');
-    comment.constructor.should.be.true;
+    comment.type.should.equal('Constructor');
+    comment.name.should.equal('MyConstructor');
   });
 
   it('should default to Undefined if variable doesn\'t get assigned anything', function () {

@@ -136,10 +136,8 @@ describe('Comment parser', function () {
 
       comment.should.be.an.Object.and.have.properties('type', 'name', 'constructor');
 
-      comment.type.should.equal('function');
+      comment.type.should.equal('Constructor');
       comment.name.should.equal('Person');
-
-      comment.constructor.should.be.true;
     });
   });
 

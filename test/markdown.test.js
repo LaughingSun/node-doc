@@ -43,7 +43,7 @@ describe('Markdown', function () {
       , i = 0;
     l[i].should.equal('# Say to somebody');
     l[++i].should.equal('');
-    l[++i].should.equal('### sayToSomebody');
+    l[++i].should.equal('### sayToSomebody (Function)');
     l[++i].should.equal('');
     l[++i].should.equal('> Warning: sayToSomebody is deprecated.');
     l[++i].should.equal('');
@@ -67,7 +67,7 @@ describe('Markdown', function () {
 
   it('should accept an constructor', function () {
     var md = toMarkdown('Say to somebody', [{
-      type: 'Function',
+      type: 'Constructor',
       name: 'SayToSomebody',
       desc: 'Say hello to the world!',
       params: [{
@@ -87,8 +87,7 @@ describe('Markdown', function () {
           }
         }
       },
-      deprecated: 'Use msgSomebody instead.',
-      constructor: true
+      deprecated: 'Use msgSomebody instead.'
     }, {
       type: 'Function',
       name: 'msgSomebody',
@@ -120,7 +119,7 @@ describe('Markdown', function () {
       , i = 0;
     l[i].should.equal('# Say to somebody');
     l[++i].should.equal('');
-    l[++i].should.equal('### SayToSomebody');
+    l[++i].should.equal('### SayToSomebody (Constructor)');
     l[++i].should.equal('');
     l[++i].should.equal('> Warning: SayToSomebody is deprecated. Use msgSomebody instead.');
     l[++i].should.equal('');
@@ -144,7 +143,7 @@ describe('Markdown', function () {
     l[++i].should.equal('| return | Object |  |');
     l[++i].should.equal('| return.person | String | Message |');
     l[++i].should.equal('');
-    l[++i].should.equal('### msgSomebody');
+    l[++i].should.equal('### msgSomebody (Function)');
     l[++i].should.equal('');
     l[++i].should.equal('```js');
     l[++i].should.equal('var msgsomebody = msgSomebody(options);');
@@ -164,7 +163,7 @@ describe('Markdown', function () {
     l[++i].should.equal('| ---- | ---- | ---------- |');
     l[++i].should.equal('| return |  | The message |');
     l[++i].should.equal('');
-    l[++i].should.equal('### somebody');
+    l[++i].should.equal('### somebody (Function)');
     l[++i].should.equal('');
     l[++i].should.equal('```js');
     l[++i].should.equal('var somebody = somebody();');
@@ -183,7 +182,7 @@ describe('Markdown', function () {
       , i = 0;
     l[i].should.equal('# Deprecated');
     l[++i].should.equal('');
-    l[++i].should.equal('### SayToSomebody');
+    l[++i].should.equal('### SayToSomebody (Function)');
     l[++i].should.equal('');
     l[++i].should.equal('```js');
     l[++i].should.equal('SayToSomebody();');
@@ -196,7 +195,7 @@ describe('Markdown', function () {
 
   it('should have display constants', function () {
     var md = toMarkdown('Constant', [{
-      type: 'Constant',
+      type: 'Number',
       name: 'MY_CONSTANT',
       constant: true
     }]);
@@ -205,11 +204,89 @@ describe('Markdown', function () {
       , i = 0;
     l[i].should.equal('# Constant');
     l[++i].should.equal('');
-    l[++i].should.equal('### MY_CONSTANT');
-    l[++i].should.equal('');
-    l[++i].should.equal('#### Constant');
+    l[++i].should.equal('### MY_CONSTANT (Constant, Number)');
   });
 
-  it('should accept an callback');
-  it('should test some more..!');
+  it('should show the access type public', function () {
+    var md = toMarkdown('Constant', [{
+      type: 'Number',
+      name: 'MY_CONSTANT',
+      constant: true,
+      access: 'public'
+    }]);
+
+    var l = md.split('\n')
+      , i = 0;
+    l[i].should.equal('# Constant');
+    l[++i].should.equal('');
+    l[++i].should.equal('### MY_CONSTANT (Constant, Number)');
+    l[++i].should.equal('');
+    l[++i].should.equal('> Access: public');
+  });
+
+  it('should show the access type private', function () {
+    var md = toMarkdown('Constant', [{
+      name: 'MY_CONSTANT',
+      constant: true,
+      access: 'private'
+    }]);
+
+    var l = md.split('\n')
+      , i = 0;
+    l[i].should.equal('# Constant');
+    l[++i].should.equal('');
+    l[++i].should.equal('### MY_CONSTANT (Constant)');
+    l[++i].should.equal('');
+    l[++i].should.equal('> Access: private');
+  });
+
+  it('should not show an type in comment title if none are given', function () {
+    var md = toMarkdown('Constant', [{
+      name: 'MY_CONSTANT',
+      access: 'private'
+    }]);
+
+    var l = md.split('\n')
+      , i = 0;
+    l[i].should.equal('# Constant');
+    l[++i].should.equal('');
+    l[++i].should.equal('### MY_CONSTANT');
+    l[++i].should.equal('');
+    l[++i].should.equal('> Access: private');
+  });
+
+  it('should accept an callback', function () {
+    var md = toMarkdown('Callback', [{
+      type: 'Callback',
+      name: 'myCallback',
+      desc: 'My awesome callback.',
+      params: [{
+        name: 'error',
+        type: 'Error',
+        desc: 'A possible error',
+      }, {
+        name: 'result',
+        type: 'Object',
+        desc: 'The result of the function.'
+      }],
+      access: 'private'
+    }]);
+
+    var l = md.split('\n')
+      , i = 0;
+    l[i].should.equal('# Callback');
+    l[++i].should.equal('');
+    l[++i].should.equal('### myCallback (Callback)');
+    l[++i].should.equal('');
+    l[++i].should.equal('> Access: private');
+    l[++i].should.equal('');
+    l[++i].should.equal('My awesome callback.');
+    l[++i].should.equal('');
+    l[++i].should.equal('#### Params');
+    l[++i].should.equal('');
+    l[++i].should.equal('| Name | Type | Optional | Desciption |');
+    l[++i].should.equal('| ---- | ---- | -------- | ---------- |');
+    l[++i].should.equal('| error | Error | False | A possible error |');
+    l[++i].should.equal('| result | Object | False | The result of the function. |');
+  });
 });

@@ -282,12 +282,11 @@ function checkPersonJson (doc) {
   personComment.should.be.an.Object.and.have.properties('type', 'name',
     'throws', 'return', 'params', 'todos', 'constructor', 'access',
     'desc', 'title');
-  personComment.type.should.equal('Function');
+  personComment.type.should.equal('Constructor');
   personComment.name.should.equal('Person');
   personComment.title.should.equal('Person');
   personComment.desc.should.equal('Create a new person.');
   personComment.access.should.equal('public');
-  personComment.constructor.should.be.true;
 
   personComment.todos.should.be.an.Array.and.have.lengthOf(1);
   personComment.todos[0].should.equal('Accept an first and surname.');
@@ -359,6 +358,7 @@ function checkConstantSubJson (doc, pv) {
 function checkPersonMd (md) {
   var l = md.split('\n')
     , i = 0;
+
   l[i].should.equal('# Person');
   l[++i].should.equal('');
   l[++i].should.equal('### Todo');
@@ -366,7 +366,9 @@ function checkPersonMd (md) {
   l[++i].should.equal(' - [ ] Give the ability to wave.');
   l[++i].should.equal(' - [ ] Give the ability to smile.');
   l[++i].should.equal('');
-  l[++i].should.equal('### Person');
+  l[++i].should.equal('### Person (Constructor)');
+  l[++i].should.equal('');
+  l[++i].should.equal('> Access: public');
   l[++i].should.equal('');
   l[++i].should.equal('Create a new person.');
   l[++i].should.equal('');
@@ -404,23 +406,17 @@ function checkConstantMd (md) {
     , i = 0;
   l[i].should.equal('# Constant');
   l[++i].should.equal('');
-  l[++i].should.equal('### DEF_LENGTH');
-  l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
+  l[++i].should.equal('### DEF_LENGTH (Constant, Number)');
   l[++i].should.equal('');
   l[++i].should.equal('The default length.');
   l[++i].should.equal('');
-  l[++i].should.equal('### MIN_LENGTH');
+  l[++i].should.equal('### MIN_LENGTH (Constant, Number)');
   l[++i].should.equal('');
   l[++i].should.equal('> Warning: MIN_LENGTH is deprecated.');
   l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
-  l[++i].should.equal('');
-  l[++i].should.equal('### MAX_LENGTH');
+  l[++i].should.equal('### MAX_LENGTH (Constant, Number)');
   l[++i].should.equal('');
   l[++i].should.equal('> Warning: MAX_LENGTH is deprecated. People are tall these days.');
-  l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
 }
 
 function checkConstantSubMd (md, pv) {
@@ -428,17 +424,15 @@ function checkConstantSubMd (md, pv) {
     , i = 0;
   l[i].should.equal('# Constant');
   l[++i].should.equal('');
-  l[++i].should.equal('### MAX_LENGTH');
+  l[++i].should.equal('### MAX_LENGTH (Constant, Number)');
   l[++i].should.equal('');
   l[++i].should.equal('> Warning: MAX_LENGTH is deprecated. People are tall these days.');
-  l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
 
   if (!pv) return;
   l[++i].should.equal('');
-  l[++i].should.equal('### MIN_LENGTH');
+  l[++i].should.equal('### MIN_LENGTH (Constant, Number)');
   l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
+  l[++i].should.equal('> Access: private');
 }
 
 function checkPrivateSubMd (md) {
@@ -446,7 +440,7 @@ function checkPrivateSubMd (md) {
     , i = 0;
   l[i].should.equal('# Private');
   l[++i].should.equal('');
-  l[++i].should.equal('### PRIVATE_VAR');
+  l[++i].should.equal('### PRIVATE_VAR (Constant, Number)');
   l[++i].should.equal('');
-  l[++i].should.equal('#### Constant');
+  l[++i].should.equal('> Access: private');
 }
