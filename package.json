@@ -8,6 +8,10 @@
     "coverage": "istanbul cover _mocha test/**.test.js",
     "doc": "nodedoc lib"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thomasdezeeuw/node-doc"
+  },
   "preferGlobal": true,
   "bin": {
     "nodedoc": "./bin/cli.js"
