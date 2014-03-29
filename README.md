@@ -1,0 +1,228 @@
+# Node doc
+
+Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.
+
+## Installation
+
+Requires Node.js and run ```npm install -g node-doc```
+
+## Getting started
+
+1. Install Node doc, see above.
+2. Open you terminal of choice an go to your code.
+2. run ```nodedoc SOURCE_DIR```, for example ```nodedoc lib```.
+3. Look into the ```doc``` folder and see the result.
+
+## Tags
+
+### Access
+
+```js
+/**
+ * Private access.
+ * @access private
+ * or
+ * @private
+ */
+function privateFunction () {}
+
+/**
+ * Public access.
+ * @access public
+ * or
+ * @public
+ */
+function publicFunction () {}
+```
+
+### Callback
+
+```js
+/**
+ * Specifiy an callback
+ * @callback name Description.
+ *
+ * example:
+ * @callback myCallback I call it, whenever I like to.
+ *                      Also, it accept multiline descriptions.
+ * @param error {Error} An error object, if an error happend.
+ * @param result {Object} The result of the async stuff.
+ */
+
+/**
+ * @title Do async
+ * @desc do some async stuff
+ *
+ * @param stuff {Object} Object with a buch of stuff.
+ * @param cb {myCallback} The callback I'll call.
+ */
+function doAsync(stuff, cb) {
+  // do async stuff
+
+  cb(null, result);
+};
+```
+
+### Constant
+
+```js
+/**
+ * A constant variable.
+ * @constant name {Type} Description.
+ *
+ * example:
+ * @constant MY_CONSTANT {Number} My constant number.
+ */
+var MY_CONSTANT = 10;
+```
+
+### Constructor
+
+```js
+/**
+ * Indicate that a function is a constructor.
+ * @constructor
+ */
+function Constructor () {}
+```
+
+### Deprecated
+
+```js
+/**
+ * Indicate that a function is deprecated.
+ * @deprecated
+ */
+function someOldFunction () {}
+```
+
+### Desc
+
+```js
+/**
+ * @desc My description,
+ *       accept multiline.
+ */
+function describeMe () {}
+```
+
+### Example
+
+```js
+/**
+ * Specify an example (one is also auto generated).
+ * @example your example,
+ *          accepts multiline comments.
+ *
+ * @example
+ * var parser = require('parser');
+ * var doc = parser(input, output, 'markdown');
+ * // or don't save it
+ * var doc = parser(input, 'markdown');
+ */
+function parser (input, output, result) {}
+```
+
+### Param
+
+```js
+/**
+ * A function parameter.
+ * @param name {Type} Description.
+ *
+ * example:
+ * @param param1
+ * @param param2 {String}
+ * @param param3 My parameter.
+ * @param param4 {Object} My parameter.
+ * @param param4.subparameter {String} Property of parameter.
+ */
+function doStuff (param1, param2, param3, param4) {}
+```
+
+### Return
+
+```js
+/**
+ * What a function returns.
+ * @return {Type} Description.
+ * or
+ * @returns {Type} Description.
+ *
+ * example:
+ * @return {Object} My return object.
+ * @return .subparameter {String} Property of the return object.
+ */
+function returnObject () {
+  return {
+    subparameter: 'Hi'
+  };
+}
+```
+
+### Throws
+
+```js
+/**
+ * An error that a function might throw
+ * @throw Error description.
+ * or
+ * @throws Error description.
+ *
+ * example:
+ * @throw You broke me! This happend because..?
+ *        I don't know.
+ */
+function throwError () {
+  throw new Error('You broke me! This happend because..? I don\'t know.');
+}
+```
+
+### Title
+
+```js
+/**
+ * @title My title
+ */
+```
+
+### Todo
+
+```js
+/**
+ * When we still need to do some stuff, globally or per function.
+ * @todo finish this.
+ * or
+ * @todo
+ * - finish..
+ * - this.
+ *
+ * example:
+ * @todo Make better documentation.
+ * @todo
+ * - Write some more tests.
+ * - Make this work.
+ * - Then make it faster.
+ */
+```
+
+## Want more examples?
+
+If you want more examples, check the code in the lib directory. Because of course I document my own code :).
+
+## Want to see the result?
+
+In the doc directory you can see the result of documenting this code.
+
+## Tests
+
+Run tests with ```npm test```, requires Mocha to be installed.
+
+## Coverage
+
+I try to get 100% coverage, you can see it for yourself with ```npm run-script coverage```, requires Istanbul to be installed.
+
+## Roadmap
+
+- Make a option to convert to Github.io pages
+- Follow module.exports for index (/readme) docs
