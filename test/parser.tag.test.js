@@ -142,16 +142,6 @@ describe('Tag parser', function () {
     });
   });
 
-  describe('desc', function () {
-    it('should accept desc tag', function () {
-      var tag = parseTag('@desc The description.');
-
-      tag.should.be.an.Object.and.have.properties('type', 'value');
-      tag.type.should.equal('desc');
-      tag.value.should.equal('The description.');
-    });
-  });
-
   describe('example', function () {
     it('should accept example tag', function () {
       var tag = parseTag('@example var doc = parse(file);');
@@ -383,15 +373,6 @@ describe('Tag parser', function () {
       (function () {
         var tag = parseTag('@throws');
       }).should.throw('No error message');
-    });
-  });
-
-  describe('title', function () {
-    it('should accept title tag', function () {
-      var tag = parseTag('@title The title');
-
-      tag.should.be.an.Object.and.have.properties('type', 'value'); tag.type.should.equal('title');
-      tag.value.should.equal('The title');
     });
   });
 

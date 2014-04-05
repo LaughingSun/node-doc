@@ -17,8 +17,7 @@ describe('Api', function () {
       ' */',
       '',
       '/**',
-      ' * @title Person',
-      ' * @desc Create a new person.',
+      ' * Create a new person.',
       ' * @public',
       ' * @constructor',
       ' *',
@@ -281,10 +280,9 @@ function checkPersonJson (doc) {
   var personComment = doc[1];
   personComment.should.be.an.Object.and.have.properties('type', 'name',
     'throws', 'return', 'params', 'todos', 'constructor', 'access',
-    'desc', 'title');
+    'desc');
   personComment.type.should.equal('Constructor');
   personComment.name.should.equal('Person');
-  personComment.title.should.equal('Person');
   personComment.desc.should.equal('Create a new person.');
   personComment.access.should.equal('public');
 

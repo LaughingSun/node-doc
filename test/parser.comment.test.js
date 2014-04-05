@@ -180,7 +180,7 @@ describe('Comment parser', function () {
   describe('desc', function () {
     it('should accept a desc', function () {
       var comment = commentParser([
-        ' * @desc This is the description.'
+        ' * This is the description.'
       ], {});
 
       comment.should.be.an.Object.and.properties('desc');
@@ -189,12 +189,23 @@ describe('Comment parser', function () {
 
     it('should accept a multiline desc', function () {
       var comment = commentParser([
-        ' * @desc This is the description,',
-        ' *       and it has multiple lines.'
+        ' * This is the description,',
+        ' * and it has multiple lines.'
       ], {});
 
       comment.should.be.an.Object.and.properties('desc');
       comment.desc.should.equal('This is the description, and it has multiple lines.');
+    });
+
+    it('should accept a multiline desc', function () {
+      var comment = commentParser([
+        ' * This is the description,',
+        ' *',
+        ' * and it has multiple lines.'
+      ], {});
+
+      comment.should.be.an.Object.and.properties('desc');
+      comment.desc.should.equal('This is the description, \n and it has multiple lines.');
     });
   });
 
@@ -427,23 +438,6 @@ describe('Comment parser', function () {
       comment.throws[0].should.equal('Some error.');
       comment.throws[1].should.equal('Some other error.');
       comment.throws[2].should.equal('A lot of things can go wrong here...');
-    });
-  });
-
-  describe('title', function () {
-    it('should accept subparams', function () {
-      var comment = commentParser([
-        ' * @title My title'
-      ], {
-        type: 'function',
-        name: 'Person'
-      });
-
-      comment.should.be.an.Object.and.have.properties('type', 'name', 'title');
-
-      comment.type.should.equal('function');
-      comment.name.should.equal('Person');
-      comment.title.should.equal('My title');
     });
   });
 
