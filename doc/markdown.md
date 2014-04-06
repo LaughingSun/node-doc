@@ -1,6 +1,6 @@
 # Markdown
 
-### To Markdown (Function)
+### toMarkdown (Function)
 
 > Access: public
 
@@ -23,7 +23,7 @@ var tomarkdown = toMarkdown(title, comments);
 | ---- | ---- | ---------- |
 | return | String | String with markdown. |
 
-### Create table (Function)
+### createTable (Function)
 
 > Access: private
 

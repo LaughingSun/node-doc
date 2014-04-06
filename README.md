@@ -50,8 +50,7 @@ function publicFunction () {}
  */
 
 /**
- * @title Do async
- * @desc do some async stuff
+ * Do some async stuff
  *
  * @param stuff {Object} Object with a buch of stuff.
  * @param cb {myCallback} The callback I'll call.
@@ -94,16 +93,6 @@ function Constructor () {}
  * @deprecated
  */
 function someOldFunction () {}
-```
-
-### Desc
-
-```js
-/**
- * @desc My description,
- *       accept multiline.
- */
-function describeMe () {}
 ```
 
 ### Example
@@ -176,14 +165,6 @@ function returnObject () {
 function throwError () {
   throw new Error('You broke me! This happend because..? I don\'t know.');
 }
-```
-
-### Title
-
-```js
-/**
- * @title My title
- */
 ```
 
 ### Todo

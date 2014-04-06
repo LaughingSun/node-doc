@@ -1,6 +1,6 @@
 # Api
 
-### Parser (Function)
+### parser (Function)
 
 > Access: public
 
@@ -26,7 +26,7 @@ var parser = parser(input, [output], [options]);
 | ---- | ---- | ---------- |
 | return | Object|String | Object or string (Markdown) with the results. |
 
-### Is dir (Function)
+### isDir (Function)
 
 > Access: private
 
@@ -48,7 +48,7 @@ var isdir = isDir(input);
 | ---- | ---- | ---------- |
 | return | Boolean | Wether the input is a directory or not. |
 
-### Get files recursive (Function)
+### getFilesRecursive (Function)
 
 > Access: private
 
@@ -70,7 +70,7 @@ var getfilesrecursive = getFilesRecursive(dir);
 | ---- | ---- | ---------- |
 | return | Array | Array with files. |
 
-### To Markdown recursive (Function)
+### toMarkdownRecursive (Function)
 
 > Access: private
 
@@ -92,7 +92,7 @@ var tomarkdownrecursive = toMarkdownRecursive(doc);
 | ---- | ---- | ---------- |
 | return | Object | Object with markdown strings. |
 
-### Save file recursive (Function)
+### saveFileRecursive (Function)
 
 > Access: private
 
@@ -110,7 +110,7 @@ saveFileRecursive(root, ext, doc);
 | ext | String | False | Extention to use. |
 | doc | Object | False | Files with object keys as names. |
 
-### Recursive check (Function)
+### recursiveCheck (Function)
 
 > Access: private
 

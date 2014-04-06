@@ -1,6 +1,6 @@
 # Comment
 
-### Comment parser (Function)
+### commentParser (Function)
 
 > Access: public
 
