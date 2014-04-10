@@ -6,7 +6,7 @@ var path = require('path')
 
 var paths = {
   src: path.join(__dirname, 'lib/**/*.js'),
-  test: path.join(__dirname, 'test/**.test.js')
+  test: path.join(__dirname, 'test/**/*.test.js')
 };
 
 gulp.task('default', ['test', 'watch']);

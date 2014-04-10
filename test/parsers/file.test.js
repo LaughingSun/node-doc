@@ -1,11 +1,11 @@
 require('should');
 
 describe('File parser', function () {
-  var fileParser = require('../lib/parsers/file');
+  var fileParser = require('../../lib/parsers/file');
 
   it('should detect function correctly', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @constructor',
       '*/',
       'function MyConstructor () {',
@@ -22,7 +22,7 @@ describe('File parser', function () {
 
   it('should detect function correctly with var', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @constructor',
       '*/',
       'var MyConstructor = function () {',
@@ -39,7 +39,7 @@ describe('File parser', function () {
 
   it('should default to Undefined if variable doesn\'t get assigned anything', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @public',
       '*/',
       'var myVar;'
@@ -55,7 +55,7 @@ describe('File parser', function () {
 
   it('should not show private comments if private is undefined', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @private',
       '*/',
       'var myVar;'
@@ -66,7 +66,7 @@ describe('File parser', function () {
 
   it('should not show private comments if private is false', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @private',
       '*/',
       'var myVar;'
@@ -77,7 +77,7 @@ describe('File parser', function () {
 
   it('should show private comments if private is true', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @private',
       '*/',
       'var myVar;'
@@ -93,7 +93,7 @@ describe('File parser', function () {
 
   it('should detect prototype correctly', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @return {String} Hi.',
       '*/',
       'MyFunction.prototype.sayHi = function (param1) {',
@@ -113,7 +113,7 @@ describe('File parser', function () {
 
   it('should accept an global todo (no code information)', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @todo Something I still need to do.',
       '*/'
     ]);
@@ -127,7 +127,7 @@ describe('File parser', function () {
 
   it('should accept detect multiline code correctly', function () {
     var doc = fileParser([
-      ' /**',
+      '/**',
       ' * @constant',
       '*/',
       'var',

@@ -2,7 +2,7 @@
 var should = require('should');
 
 describe('Tag parser', function () {
-  var parseTag = require('../lib/parsers/tag');
+  var parseTag = require('../../lib/parsers/tag');
 
   describe('access', function () {
     it('should accept access with public tag', function () {

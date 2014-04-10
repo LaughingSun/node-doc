@@ -1,7 +1,7 @@
 require('should');
 
 describe('Comment parser', function () {
-  var commentParser = require('../lib/parsers/comment');
+  var commentParser = require('../../lib/parsers/comment');
 
   describe('access', function () {
     it('should accept access (private) tag', function () {
