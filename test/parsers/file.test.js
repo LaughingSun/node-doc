@@ -37,6 +37,21 @@ describe('File parser', function () {
     comment.name.should.equal('MyConstructor');
   });
 
+  it('should accept a oneline comment', function () {
+    var doc = fileParser([
+      '/** @constructor */',
+      'var MyConstructor = function () {',
+      ' return this;',
+      '};'
+    ]);
+
+    doc.should.be.an.Array.and.have.lengthOf(1);
+    var comment = doc[0];
+    comment.should.be.an.Object.and.have.properties('type', 'name', 'constructor');
+    comment.type.should.equal('Constructor');
+    comment.name.should.equal('MyConstructor');
+  });
+
   it('should default to Undefined if variable doesn\'t get assigned anything', function () {
     var doc = fileParser([
       '/**',
