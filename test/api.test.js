@@ -43,6 +43,21 @@ describe('Api', function () {
       '  return this',
       '}'
     ].join('\n'),
+    'application.js': [
+      '/**',
+      ' * Create a new application.',
+      ' * @public',
+      ' * @constructor',
+      ' *',
+      ' * @param name {String} Name of the application.',
+      ' * @return app {Object}',
+      ' * @return .name {String} The application name.',
+      ' */',
+      'function Application (name) {',
+      '  this.name = name',
+      '  return this',
+      '}'
+    ].join('\n'),
     'constant.js': [
       '/**',
       ' * @constant {Number} The default length.',
@@ -105,7 +120,8 @@ describe('Api', function () {
   it('should parse all files in a directory', function () {
     var doc = parser(dir);
 
-    doc.should.be.an.Object.and.have.properties('person', 'constant');
+    doc.should.be.an.Object.and.have.properties('application', 'person', 'constant');
+    checkApplicationJson(doc.application)
     checkConstantJson(doc.constant)
     checkPersonJson(doc.person);
   });
@@ -176,9 +192,10 @@ describe('Api', function () {
   it('should parse all files in a directory and sub directory\'s and convert to markdown', function () {
     var doc = parser(dir, {result: 'markdown'});
 
-    doc.should.be.an.Object.and.have.properties('person', 'constant', 'dir');
+    doc.should.be.an.Object.and.have.properties('application', 'person', 'constant', 'dir');
     doc.dir.should.be.an.Object.and.have.property('constant');
 
+    checkApplicationMd(doc.application)
     checkPersonMd(doc.person);
     checkConstantMd(doc.constant);
     checkConstantSubMd(doc.dir.constant);
@@ -269,6 +286,36 @@ describe('Api', function () {
   });
 });
 
+function checkApplicationJson (doc) {
+  doc.should.be.an.Array.and.have.lengthOf(1);
+
+  var appComment = doc[0];
+  appComment.should.be.an.Object.and.have.properties('type', 'name',
+    'return', 'params', 'constructor', 'access', 'desc');
+  appComment.type.should.equal('Constructor');
+  appComment.name.should.equal('Application');
+  appComment.desc.should.equal('Create a new application.');
+  appComment.access.should.equal('public');
+
+  appComment.params.should.be.an.Array.and.have.lengthOf(1);
+  var param = appComment.params[0];
+  param.should.be.an.Object.and.have.properties('name', 'type', 'desc');
+  param.name.should.equal('name');
+  param.desc.should.equal('Name of the application.');
+  param.type.should.equal('String');
+
+  var rtn = appComment.return;
+  rtn.should.be.an.Object.and.have.properties('name', 'type', 'properties');
+  rtn.name.should.equal('app');
+  rtn.type.should.equal('Object');
+  rtn.properties.should.an.Object.and.properties('name');
+
+  var rtnProp = rtn.properties.name;
+  rtnProp.should.be.an.Object.and.properties('type', 'desc');
+  rtnProp.type.should.equal('String');
+  rtnProp.desc.should.equal('The application name.');
+}
+
 function checkPersonJson (doc) {
   doc.should.be.an.Array.and.have.lengthOf(2);
 
@@ -351,6 +398,36 @@ function checkConstantSubJson (doc, pv) {
   constant.name.should.equal('MIN_LENGTH');
   constant.constant.should.be.true;
   constant.access.should.equal('private');
+}
+
+function checkApplicationMd (md) {
+  var l = md.split('\n')
+    , i = 0;
+
+  l[i].should.equal('# Application');
+  l[++i].should.equal('');
+  l[++i].should.equal('### Application (Constructor)');
+  l[++i].should.equal('');
+  l[++i].should.equal('> Access: public');
+  l[++i].should.equal('');
+  l[++i].should.equal('Create a new application.');
+  l[++i].should.equal('');
+  l[++i].should.equal('```js');
+  l[++i].should.equal('var app = new Application(name);');
+  l[++i].should.equal('```');
+  l[++i].should.equal('');
+  l[++i].should.equal('#### Params');
+  l[++i].should.equal('');
+  l[++i].should.equal('| Name | Type | Optional | Desciption |');
+  l[++i].should.equal('| ---- | ---- | -------- | ---------- |');
+  l[++i].should.equal('| name | String | False | Name of the application. |');
+  l[++i].should.equal('');
+  l[++i].should.equal('#### Returns');
+  l[++i].should.equal('');
+  l[++i].should.equal('| Name | Type | Desciption |');
+  l[++i].should.equal('| ---- | ---- | ---------- |');
+  l[++i].should.equal('| return | Object |  |');
+  l[++i].should.equal('| return.name | String | The application name. |');
 }
 
 function checkPersonMd (md) {

@@ -6,11 +6,9 @@
 ehthumbs.db
 Thumbs.db
 
-
 # Editors
 *.sublime-project
 *.sublime-workspace
-
 
 # Node
 *.log

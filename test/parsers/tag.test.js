@@ -289,11 +289,11 @@ describe('Tag parser', function () {
     });
 
     it('should accept return tag with a single word description', function () {
-      var tag = parseTag('@return description');
+      var tag = parseTag('@return Description');
 
       tag.should.be.an.Object.and.have.properties('type', 'value');
       tag.type.should.equal('return');
-      tag.value.should.be.an.Object.and.have.property('desc', 'description');
+      tag.value.should.be.an.Object.and.have.property('desc', 'Description');
     });
 
     it('should accept return tag with type', function () {
@@ -310,6 +310,17 @@ describe('Tag parser', function () {
       tag.should.be.an.Object.and.have.properties('type', 'value');
       tag.type.should.equal('return');
       tag.value.should.be.an.Object.and.have.properties('type', 'desc');
+      tag.value.type.should.equal('Number');
+      tag.value.desc.should.equal("The return to do stuff");
+    });
+
+    it('should accept return tag with name, type and desc', function () {
+      var tag = parseTag("@return returnName {Number} The return to do stuff");
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('return');
+      tag.value.should.be.an.Object.and.have.properties('name', 'type', 'desc');
+      tag.value.name.should.equal('returnName');
       tag.value.type.should.equal('Number');
       tag.value.desc.should.equal("The return to do stuff");
     });
