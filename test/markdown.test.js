@@ -386,4 +386,10 @@ describe('Markdown', function () {
     l[++i].should.equal('| error | Error | False | A possible error |');
     l[++i].should.equal('| result | Object | False | The result of the function. |');
   });
+
+  it('should accept an callback', function () {
+    (function () {
+      var md = toMarkdown('Error', {type: 'Error'});
+    }).should.throw('Comments need to be an array');
+  });
 });

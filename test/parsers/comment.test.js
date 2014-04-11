@@ -55,7 +55,7 @@ describe('Comment parser', function () {
     it('should accept an callback with only a name', function () {
       var comment = commentParser([
         ' * @callback myCallback'
-      ], {});
+      ]);
 
       comment.should.be.an.Object.and.have.properties('type', 'name');
       comment.type.should.equal('Callback');
@@ -66,7 +66,7 @@ describe('Comment parser', function () {
       (function () {
         var comment = commentParser([
           ' * @callback'
-        ], {});
+        ]);
       }).should.throw('Doesn\'t have a name');
     });
   });
@@ -286,6 +286,18 @@ describe('Comment parser', function () {
           name: 'Person'
         });
       }).should.throw('No param: info');
+    });
+
+    it('should throw if parent param is not an object', function () {
+      (function () {
+        var comment = commentParser([
+          ' * @param info {String}',
+          ' * @param info.age',
+        ], {
+          type: 'function',
+          name: 'Person'
+        });
+      }).should.throw('Param info is not an object');
     });
   });
 
