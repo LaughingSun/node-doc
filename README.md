@@ -221,11 +221,11 @@ I try to get 100% coverage, you can see it for yourself with ```npm run-script c
 ## Roadmap
 
 ### Version 0.2
-- [ ] Check package.json for entry point, else index.js, not directory
-- [ ] Follow Node's commonjs module exports
+- Check package.json for entry point, else index.js, not directory
+- Follow Node's commonjs module exports
 
 ### Version ??
-- [ ] Make a option to convert to Github.io pages
+- Make a option to convert to Github.io pages
 
 ## Known bugs
-- [ ] Usage of '/**' in code (fixing in version 0.2)
+- Usage of '/**' in code (fixing in version 0.2)
