@@ -240,7 +240,7 @@ describe('Comment parser', function () {
         ' * @param info {Object}',
         ' * @param info.firstname {String}',
         ' * @param info.surname {String} The persons last name.',
-        ' * @param info.age',
+        ' * @param [info.age]',
       ], {
         type: 'function',
         name: 'Person'
@@ -270,7 +270,7 @@ describe('Comment parser', function () {
       subparams.surname.should.be.an.Object.and.have.properties('type', 'desc');
       subparams.surname.type.should.equal('String');
       subparams.surname.desc.should.equal('The persons last name.');
-      subparams.age.should.be.an.Object.and.empty;
+      subparams.age.should.be.an.Object.and.have.property('optional', true);
     });
 
     it('should throw if subparam doesn\'t have a parent', function () {

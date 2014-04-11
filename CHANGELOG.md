@@ -2,6 +2,9 @@
 
 ## Change log
 
+### 0.1.4
+- Fixed optional sub param
+
 ### 0.1.3
  - *BREAKING* String needed in the file parser, instead of array.
  - Added @this tag
