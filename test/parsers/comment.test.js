@@ -419,6 +419,97 @@ describe('Comment parser', function () {
     });
   });
 
+  describe('this, subthis', function () {
+    it('should accept this', function () {
+      var comment = commentParser([
+        ' * @this The this object.'
+      ], {
+        type: 'function',
+        name: 'Person'
+      });
+
+      comment.should.be.an.Object.and.have.properties('type', 'name', 'this');
+
+      comment.type.should.equal('function');
+      comment.name.should.equal('Person');
+      comment.this.should.be.an.Object.and.have.properties('desc');
+      comment.this.desc.should.equal('The this object.');
+    });
+
+    it('should accept subthis', function () {
+      var comment = commentParser([
+        ' * @this .name'
+      ], {
+        type: 'function',
+        name: 'Person'
+      });
+
+      comment.should.be.an.Object.and.have.properties('type', 'name', 'this');
+      comment.type.should.equal('function');
+      comment.name.should.equal('Person');
+
+      comment.this.should.be.an.Object.and.have.properties('properties');
+      comment.this.properties.should.be.an.Object.and.have.property('name');
+      comment.this.properties.name.should.be.an.Object;
+    });
+
+    it('should accept subthis with type', function () {
+      var comment = commentParser([
+        ' * @this This object.',
+        ' * @this .name {String}'
+      ], {
+        type: 'function',
+        name: 'Person'
+      });
+
+      comment.should.be.an.Object.and.have.properties('type', 'name', 'this');
+      comment.type.should.equal('function');
+      comment.name.should.equal('Person');
+
+      comment.this.should.be.an.Object.and.have.properties('properties');
+      comment.this.properties.should.be.an.Object.and.have.property('name');
+      comment.this.properties.name.should.be.an.Object.and.have.property('type', 'String');
+    });
+
+    it('should accept subthis with desc', function () {
+      var comment = commentParser([
+        ' * @this .name A this object property.'
+      ], {
+        type: 'function',
+        name: 'Person'
+      });
+
+      comment.should.be.an.Object.and.have.properties('type', 'name', 'this');
+      comment.type.should.equal('function');
+      comment.name.should.equal('Person');
+
+      comment.this.should.be.an.Object.and.have.properties('properties');
+      comment.this.properties.should.be.an.Object.and.have.property('name');
+      comment.this.properties.name.should.be.an.Object.and.have.property('desc', 'A this object property.');
+    });
+
+    it('should accept subreturn with type and desc', function () {
+      var comment = commentParser([
+        ' * @this This object.',
+        ' * @this .name {String} A this object property.'
+      ], {
+        type: 'function',
+        name: 'Person'
+      });
+
+      comment.should.be.an.Object.and.have.properties('type', 'name', 'this');
+      comment.type.should.equal('function');
+      comment.name.should.equal('Person');
+
+      comment.this.should.be.an.Object.and.have.properties('desc', 'properties');
+      comment.this.desc.should.equal('This object.');
+      comment.this.properties.should.be.an.Object.and.have.property('name');
+      comment.this.properties.name.should.be.an.Object.and.have.properties('type', 'desc');
+      comment.this.properties.name.type.should.equal('String');
+      comment.this.properties.name.desc.should.equal('A this object property.');
+    });
+  });
+
   describe('throws', function () {
     it('should accept subparams', function () {
       var comment = commentParser([

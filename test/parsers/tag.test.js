@@ -363,6 +363,73 @@ describe('Tag parser', function () {
     });
   });
 
+  describe('this, subthis', function () {
+    it('should accept this tag with description', function () {
+      var tag = parseTag('@this The this object.');
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('this');
+      tag.value.should.be.an.Object.and.have.property('desc', 'The this object.');
+    });
+
+    it('should accept this tag with a single word description', function () {
+      var tag = parseTag('@this Description');
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('this');
+      tag.value.should.be.an.Object.and.have.property('desc', 'Description');
+    });
+
+    it('should accept subthis tag with description', function () {
+      var tag = parseTag('@this .name Something I returned.');
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('subthis');
+      tag.value.should.be.an.Object.and.have.properties('desc', 'name');
+      tag.value.desc.should.equal('Something I returned.');
+      tag.value.name.should.equal('name');
+    });
+
+    it('should accept subthis tag with type', function () {
+      var tag = parseTag('@this .name {Number}');
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('subthis');
+      tag.value.should.be.an.Object.and.have.properties('name', 'type');
+      tag.value.name.should.equal('name');
+      tag.value.type.should.equal('Number');
+    });
+
+    it('should accept this sub tag with name, type and desc', function () {
+      var tag = parseTag("@this .name {Number} A property.");
+
+      tag.should.be.an.Object.and.have.properties('type', 'value');
+      tag.type.should.equal('subthis');
+      tag.value.should.be.an.Object.and.have.properties('name', 'type', 'desc');
+      tag.value.name.should.equal('name');
+      tag.value.type.should.equal('Number');
+      tag.value.desc.should.equal("A property.");
+    });
+
+    it('should throw if an return doesn\'t have a name', function () {
+      (function () {
+        var tag = parseTag('@this');
+      }).should.throw('Requires an description or name');
+    });
+
+    it('should throw if an return doesn\'t have a name but does have a type', function () {
+      (function () {
+        var tag = parseTag('@this {Number}');
+      }).should.throw('Can\'t have a type for the this object');
+    });
+
+    it('should throw if an return doesn\'t have a name but does have a type and description', function () {
+      (function () {
+        var tag = parseTag('@this {Number} The this object.');
+      }).should.throw('Can\'t have a type for the this object');
+    });
+  });
+
   describe('throws', function () {
     it('should accept throws tag', function () {
       var tag = parseTag('@throws error message');

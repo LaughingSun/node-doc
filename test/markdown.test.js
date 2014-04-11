@@ -78,6 +78,13 @@ describe('Markdown', function () {
         optional: true,
         desc: 'To who do we need to say it.'
       }],
+      this: {
+        properties: {
+          somebody: {
+            desc: 'Person to say something to.'
+          }
+        }
+      },
       return: {
         type: 'Object',
         properties: {
@@ -104,6 +111,9 @@ describe('Markdown', function () {
           }
         }
       }],
+      this: {
+        desc: 'The this object.'
+      },
       return: {
         desc: 'The message'
       }
@@ -136,6 +146,12 @@ describe('Markdown', function () {
     l[++i].should.equal('| what | String | False |  |');
     l[++i].should.equal('| somebody |  | True | To who do we need to say it. |');
     l[++i].should.equal('');
+    l[++i].should.equal('#### This');
+    l[++i].should.equal('');
+    l[++i].should.equal('| Name | Type | Desciption |');
+    l[++i].should.equal('| ---- | ---- | ---------- |');
+    l[++i].should.equal('| somebody |  | Person to say something to. |');
+    l[++i].should.equal('');
     l[++i].should.equal('#### Returns');
     l[++i].should.equal('');
     l[++i].should.equal('| Name | Type | Desciption |');
@@ -157,6 +173,10 @@ describe('Markdown', function () {
     l[++i].should.equal('| options.msg | String | False | The message to send |');
     l[++i].should.equal('| options.name |  | False |  |');
     l[++i].should.equal('');
+    l[++i].should.equal('#### This');
+    l[++i].should.equal('');
+    l[++i].should.equal('The this object.');
+    l[++i].should.equal('');
     l[++i].should.equal('#### Returns');
     l[++i].should.equal('');
     l[++i].should.equal('| Name | Type | Desciption |');
@@ -168,6 +188,83 @@ describe('Markdown', function () {
     l[++i].should.equal('```js');
     l[++i].should.equal('var somebody = somebody();');
     l[++i].should.equal('```');
+  });
+
+  it('should accept an constructor with this defined', function () {
+    var md = toMarkdown('Person', [{
+      type: 'Constructor',
+      name: 'Person',
+      desc: 'Create a new person!',
+      params: [{
+        name: 'name',
+        type: 'String'
+      }, {
+        name: 'age',
+        type: 'Number',
+        optional: true
+      }],
+      return: {
+        name: 'human',
+        type: 'Object',
+        properties: {
+          name: {
+            type: 'String'
+          },
+          age: {
+            type: 'Number'
+          }
+        }
+      },
+      this: {
+        desc: 'Inherits from Human.',
+        properties: {
+          name: {
+            desc: 'The name of the person.',
+            type: 'String'
+          },
+          age: {
+            desc: 'Age of the person.',
+            type: 'Number'
+          }
+        }
+      }
+    }]);
+
+    var l = md.split('\n')
+      , i = 0;
+    l[i].should.equal('# Person');
+    l[++i].should.equal('');
+    l[++i].should.equal('### Person (Constructor)');
+    l[++i].should.equal('');
+    l[++i].should.equal('Create a new person!');
+    l[++i].should.equal('');
+    l[++i].should.equal('```js');
+    l[++i].should.equal('var human = new Person(name, [age]);');
+    l[++i].should.equal('```');
+    l[++i].should.equal('');
+    l[++i].should.equal('#### Params');
+    l[++i].should.equal('');
+    l[++i].should.equal('| Name | Type | Optional | Desciption |');
+    l[++i].should.equal('| ---- | ---- | -------- | ---------- |');
+    l[++i].should.equal('| name | String | False |  |');
+    l[++i].should.equal('| age | Number | True |  |');
+    l[++i].should.equal('');
+    l[++i].should.equal('#### This');
+    l[++i].should.equal('');
+    l[++i].should.equal('Inherits from Human.');
+    l[++i].should.equal('');
+    l[++i].should.equal('| Name | Type | Desciption |');
+    l[++i].should.equal('| ---- | ---- | ---------- |');
+    l[++i].should.equal('| name | String | The name of the person. |');
+    l[++i].should.equal('| age | Number | Age of the person. |');
+    l[++i].should.equal('');
+    l[++i].should.equal('#### Returns');
+    l[++i].should.equal('');
+    l[++i].should.equal('| Name | Type | Desciption |');
+    l[++i].should.equal('| ---- | ---- | ---------- |');
+    l[++i].should.equal('| return | Object |  |');
+    l[++i].should.equal('| return.name | String |  |');
+    l[++i].should.equal('| return.age | Number |  |');
   });
 
   it('should display what errors an function throws', function () {
