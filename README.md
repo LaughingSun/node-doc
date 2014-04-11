@@ -149,6 +149,21 @@ function returnObject () {
 }
 ```
 
+### This
+
+```js
+/**
+ * Description of the the this object
+ * @this Desciption.
+ * or define a property of this
+ * @this .property {Type} Description.
+ *
+ * example:
+ * @this .name {String} Name of the error.
+ */
+function Constructor () {}
+```
+
 ### Throws
 
 ```js
@@ -205,5 +220,12 @@ I try to get 100% coverage, you can see it for yourself with ```npm run-script c
 
 ## Roadmap
 
-- Make a option to convert to Github.io pages
-- Follow module.exports for index (/readme) docs
+### Version 0.2
+- [ ] Check package.json for entry point, else index.js, not directory
+- [ ] Follow Node's commonjs module exports
+
+### Version ??
+- [ ] Make a option to convert to Github.io pages
+
+## Known bugs
+- [ ] Usage of '/**' in code (fixing in version 0.2)

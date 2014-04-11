@@ -7,11 +7,11 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @constructor',
-      '*/',
+      ' */',
       'function MyConstructor () {',
       ' return this;',
       '}'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -24,11 +24,11 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @constructor',
-      '*/',
+      ' */',
       'var MyConstructor = function () {',
       ' return this;',
       '};'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -37,13 +37,13 @@ describe('File parser', function () {
     comment.name.should.equal('MyConstructor');
   });
 
-  it('should accept a oneline comment', function () {
+  it('should accept a one line comment', function () {
     var doc = fileParser([
       '/** @constructor */',
       'var MyConstructor = function () {',
       ' return this;',
       '};'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -56,9 +56,9 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @public',
-      '*/',
+      ' */',
       'var myVar;'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -72,9 +72,9 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @private',
-      '*/',
+      ' */',
       'var myVar;'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(0);
   });
@@ -83,9 +83,9 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @private',
-      '*/',
+      ' */',
       'var myVar;'
-    ], false);
+    ].join('\n'), false);
 
     doc.should.be.an.Array.and.have.lengthOf(0);
   });
@@ -94,9 +94,9 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @private',
-      '*/',
+      ' */',
       'var myVar;'
-    ], true);
+    ].join('\n'), true);
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -110,11 +110,11 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @return {String} Hi.',
-      '*/',
+      ' */',
       'MyFunction.prototype.sayHi = function (param1) {',
       '  return \'Hi\'',
       '};'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -130,8 +130,8 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @todo Something I still need to do.',
-      '*/'
-    ]);
+      ' */'
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -144,7 +144,7 @@ describe('File parser', function () {
     var doc = fileParser([
       '/**',
       ' * @constant',
-      '*/',
+      ' */',
       'var',
       ' ',
       'MY_CONSTANT',
@@ -153,7 +153,7 @@ describe('File parser', function () {
       ' ',
       '\'Some string\'',
       ';'
-    ]);
+    ].join('\n'));
 
     doc.should.be.an.Array.and.have.lengthOf(1);
     var comment = doc[0];
@@ -165,7 +165,7 @@ describe('File parser', function () {
 
   it('should throw if the given input is not an array', function () {
     (function () {
-      var comment = fileParser('', {});
-    }).should.throw('Not an array');
+      var comment = fileParser([], {});
+    }).should.throw('Input file not a string');
   });
 });

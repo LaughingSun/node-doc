@@ -1,11 +1,11 @@
 {
   "name": "node-doc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.",
   "main": "index.js",
   "scripts": {
     "test": "gulp lint test",
-    "coverage": "istanbul cover _mocha test/**.test.js",
+    "coverage": "istanbul cover _mocha test/**/*.test.js",
     "doc": "nodedoc lib"
   },
   "repository": {
