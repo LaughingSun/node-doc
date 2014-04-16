@@ -76,7 +76,7 @@ describe('Api', function () {
       ' */',
       'var MAX_LENGTH = 5;'
     ].join('\n'),
-    dir: {
+    util: {
       'constant.js': [
         '/**',
         ' * @constant',
@@ -121,8 +121,8 @@ describe('Api', function () {
     var doc = parser(dir);
 
     doc.should.be.an.Object.and.have.properties('application', 'person', 'constant');
-    checkApplicationJson(doc.application)
-    checkConstantJson(doc.constant)
+    checkApplicationJson(doc.application);
+    checkConstantJson(doc.constant);
     checkPersonJson(doc.person);
   });
 
@@ -159,7 +159,7 @@ describe('Api', function () {
     var doc = {
       'person': JSON.parse(fs.readFileSync(output + '/person.json', 'utf-8')),
       'constant': JSON.parse(fs.readFileSync(output + '/constant.json', 'utf-8')),
-      'subConstant': JSON.parse(fs.readFileSync(output + '/dir/constant.json', 'utf-8'))
+      'subConstant': JSON.parse(fs.readFileSync(output + '/util/constant.json', 'utf-8'))
     };
 
     checkConstantJson(doc.constant)
@@ -169,14 +169,14 @@ describe('Api', function () {
 
   it('should show private comments with private true', function () {
     var input = dir
-      , output = __dirname + '/doc3';
+      , output = __dirname + '/doc4';
 
     parser(input, output, {private: true});
 
     var doc = {
       'person': JSON.parse(fs.readFileSync(output + '/person.json', 'utf-8')),
       'constant': JSON.parse(fs.readFileSync(output + '/constant.json', 'utf-8')),
-      'subConstant': JSON.parse(fs.readFileSync(output + '/dir/constant.json', 'utf-8'))
+      'subConstant': JSON.parse(fs.readFileSync(output + '/util/constant.json', 'utf-8'))
     };
 
     checkConstantJson(doc.constant)
@@ -192,29 +192,29 @@ describe('Api', function () {
   it('should parse all files in a directory and sub directory\'s and convert to markdown', function () {
     var doc = parser(dir, {result: 'markdown'});
 
-    doc.should.be.an.Object.and.have.properties('application', 'person', 'constant', 'dir');
-    doc.dir.should.be.an.Object.and.have.property('constant');
+    doc.should.be.an.Object.and.have.properties('application', 'person', 'constant', 'util');
+    doc.util.should.be.an.Object.and.have.property('constant');
 
     checkApplicationMd(doc.application)
     checkPersonMd(doc.person);
     checkConstantMd(doc.constant);
-    checkConstantSubMd(doc.dir.constant);
+    checkConstantSubMd(doc.util.constant);
   });
 
   it('should parse all files in a directory and sub directory\'s and convert to markdown with private comments', function () {
     var doc = parser(dir, {result: 'markdown', private: true});
 
-    doc.should.be.an.Object.and.have.properties('person', 'constant', 'dir');
-    doc.dir.should.be.an.Object.and.have.properties('constant', 'private');
+    doc.should.be.an.Object.and.have.properties('person', 'constant', 'util');
+    doc.util.should.be.an.Object.and.have.properties('constant', 'private');
 
     checkPersonMd(doc.person);
     checkConstantMd(doc.constant);
-    checkConstantSubMd(doc.dir.constant);
-    checkPrivateSubMd(doc.dir.private);
+    checkConstantSubMd(doc.util.constant);
+    checkPrivateSubMd(doc.util.private);
   });
 
   it('should parse a file, convert to markdown and save it', function () {
-    var output = __dirname + '/doc4/person.md';
+    var output = __dirname + '/doc5/person.md';
 
     parser(dir + 'person.js', output, {result: 'markdown'});
 
@@ -223,7 +223,7 @@ describe('Api', function () {
   });
 
   it('should parse a file, convert to markdown and save it to directory', function () {
-    var output = __dirname + '/doc5/';
+    var output = __dirname + '/doc6/';
 
     parser(dir + 'person.js', output, {result: 'markdown'});
 
@@ -232,17 +232,17 @@ describe('Api', function () {
   });
 
   it('should parse all files in a directory and sub directory\'s, convert to markdown and save it to directory', function () {
-    var output = __dirname + '/doc6/';
+    var output = __dirname + '/doc7/';
 
     parser(dir, output, {result: 'markdown'});
 
     var doc = {
       'person': fs.readFileSync(output + 'person.md', 'utf-8'),
       'constant': fs.readFileSync(output + 'constant.md', 'utf-8'),
-      'subConstant': fs.readFileSync(output + 'dir/constant.md', 'utf-8')
+      'subConstant': fs.readFileSync(output + 'util/constant.md', 'utf-8')
     };
 
-    fs.existsSync(output + 'dir/private.md').should.be.false;
+    fs.existsSync(output + 'util/private.md').should.be.false;
 
     checkPersonMd(doc.person);
     checkConstantMd(doc.constant);
@@ -250,15 +250,15 @@ describe('Api', function () {
   });
 
   it('should parse all files in a dir, convert to md, save and show private', function () {
-    var output = __dirname + '/doc6/';
+    var output = __dirname + '/doc8/';
 
     parser(dir, output, {result: 'markdown', private: true});
 
     var doc = {
       'person': fs.readFileSync(output + 'person.md', 'utf-8'),
       'constant': fs.readFileSync(output + 'constant.md', 'utf-8'),
-      'subConstant': fs.readFileSync(output + 'dir/constant.md', 'utf-8'),
-      'subPrivate': fs.readFileSync(output + 'dir/private.md', 'utf-8')
+      'subConstant': fs.readFileSync(output + 'util/constant.md', 'utf-8'),
+      'subPrivate': fs.readFileSync(output + 'util/private.md', 'utf-8')
     };
 
     checkPersonMd(doc.person);
@@ -269,7 +269,7 @@ describe('Api', function () {
 
   it('should throw if input is a dir and output a file', function () {
     var input = dir
-      , output = __dirname + '/doc7/person.json';
+      , output = __dirname + '/doc9/person.json';
 
     (function () {
       parser(input, output);
@@ -278,7 +278,7 @@ describe('Api', function () {
 
   it('should throw if result is not markdown or json', function () {
     var input = dir
-      , output = __dirname + '/doc8/person.json';
+      , output = __dirname + '/doc10/person.json';
 
     (function () {
       parser(dir, output, {result: 'notMarkdown'});
