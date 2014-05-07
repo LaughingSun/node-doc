@@ -1,5 +1,11 @@
 # Node doc
 
+[![Build Status](https://travis-ci.org/Thomasdezeeuw/node-doc.svg?branch=master)](https://travis-ci.org/Thomasdezeeuw/node-doc)
+
+[![Dependency Status](https://gemnasium.com/Thomasdezeeuw/node-doc.svg)](https://gemnasium.com/Thomasdezeeuw/node-doc)
+
+[![Coverage Status](https://coveralls.io/repos/Thomasdezeeuw/node-doc/badge.png)](https://coveralls.io/r/Thomasdezeeuw/node-doc)
+
 Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.
 
 ## Installation
