@@ -4,8 +4,8 @@
   "description": "Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.test.js",
-    "coverage": "NODE_ENV=test istanbul cover _mocha test/**/*.test.js",
+    "test": "./node_modules/mocha/bin/mocha test/**/*.test.js",
+    "coverage": "NODE_ENV=test ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha test/**/*.test.js",
     "doc": "nodedoc lib"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "gulp-jscs": "^0.3.2",
     "gulp-jshint": "^1.5.0",
     "gulp-mocha": "^0.4.1",
+    "istanbul": "^0.2.8",
     "mocha": "^1.18.2",
     "mock-fs": "^2.2.0",
     "should": "^3.1.3"
