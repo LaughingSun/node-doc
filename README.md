@@ -216,20 +216,8 @@ In the doc directory you can see the result of documenting this code.
 
 ## Tests
 
-Run tests with ```npm test```, requires Mocha to be installed.
+Run tests with ```npm test```.
 
 ## Coverage
 
-I try to get 100% coverage, you can see it for yourself with ```npm run-script coverage```, requires Istanbul to be installed.
-
-## Roadmap
-
-### Version 0.2
-- Check package.json for entry point, else index.js, not directory
-- Follow Node's commonjs module exports
-
-### Version ??
-- Make a option to convert to Github.io pages
-
-## Known bugs
-- Usage of '/**' in code (fixing in version 0.2)
+I try to get 100% coverage, you can see it for yourself with ```npm run-script coverage```.
