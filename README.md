@@ -4,6 +4,9 @@
 [![Dependency Status](https://gemnasium.com/Thomasdezeeuw/node-doc.svg)](https://gemnasium.com/Thomasdezeeuw/node-doc)
 [![Coverage Status](https://coveralls.io/repos/Thomasdezeeuw/node-doc/badge.png)](https://coveralls.io/r/Thomasdezeeuw/node-doc)
 
+
+# Under active development, code on master doesn't work. Use the v0.1.4 tag code or use NPM.
+
 Node doc is a documenting tool. You can extract documentation from your source code and convert it into markdown, for easy use in for example GitHub.
 
 ## Installation
@@ -220,4 +223,4 @@ Run tests with ```npm test```.
 
 ## Coverage
 
-I try to get 100% coverage, you can see it for yourself with ```npm run-script coverage```.
+I try to get 100% coverage, you can see it for yourself with ```npm run coverage```.
