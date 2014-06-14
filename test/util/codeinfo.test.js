@@ -367,6 +367,15 @@ describe('Code info util', function () {
       should.equal(info.name, undefined);
     });
 
+    it('should detect a named function assigned to module.exports', function () {
+      var info = detectCodeInfo('module.exports = function myFunction () {};');
+
+      info.should.be.an.Object.and.have.properties('exports', 'type', 'name');
+      info.exports.should.equal(true);
+      info.type.should.equal('Function');
+      info.name.should.equal('myFunction');
+    });
+
     it('should detect a variable assigned to module.exports', function () {
       var info = detectCodeInfo('module.exports = myVariable;');
 
@@ -468,8 +477,17 @@ describe('Code info util', function () {
       info.name.should.equal('myVariable');
     });
 
+    it('should detect a named function assigned to exports', function () {
+      var info = detectCodeInfo('exports.myVariable = function myFunction () {};');
+
+      info.should.be.an.Object.and.have.properties('exports', 'type', 'name');
+      info.exports.should.equal(true);
+      info.type.should.equal('Function');
+      info.name.should.equal('myVariable');
+    });
+
     it('should detect a variable assigned to exports', function () {
-      var info = detectCodeInfo('exports.myVariable = myVariable;');
+      var info = detectCodeInfo('exports.myVariable = myOtherVariable;');
 
       info.should.be.an.Object.and.have.properties('exports', 'type', 'name');
       info.exports.should.equal(true);
