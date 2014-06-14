@@ -9,7 +9,8 @@ var paths = {
   test: path.join(__dirname, 'test/**/*.test.js')
 };
 
-gulp.task('default', ['test', 'watch']);
+gulp.task('default', ['dev']);
+gulp.task('dev', ['watch']);
 
 gulp.task('watch', function () {
   gulp.watch([paths.src, paths.test], {interval: 500}, ['test']);
