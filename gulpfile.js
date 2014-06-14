@@ -20,7 +20,7 @@ gulp.task('test', function () {
     .pipe(mocha({
       ui: 'bdd',
       reporter: 'dot',
-      timeout: 200
+      timeout: 50
     }))
     .on('error', function (err) {
       if (err.message.indexOf('failed.') < 0) {
