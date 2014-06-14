@@ -10,56 +10,6 @@ var should = require('should');
  * };
  */
 
-
-/**
-  // Get file name OR main package name
-  module.exports = function () {};
-
-  //
-
-  // Should be documentated per function object...
-  module.exports = {
-    function: function () {},
-    variable: 'string'
-  };
-
-  // Known..
-
-  var variable = function () {};
-  module.exports = variable;
-                   ^^^^^^^^
-  //
-
-  module.exports = function myFunction () {};
-                            ^^^^^^^^^^
-  //
-
-  function myFunction ();
-  module.exports = myFunction;
-                   ^^^^^^^^^^
-  //
-
-  var variable = function () {};
-  exports.variable = variable;
-                    ^^^^^^^^
-  //
-
-  exports.myFunction = function myFunction () {};
-                                ^^^^^^^^^^
-  //
-
-  function myFunction ();
-  exports.myFunction = myFunction;
-                       ^^^^^^^^^^
-  //
-
-  function myFunction ();
-  module.exports = myFunction;
-                   ^^^^^^^^^^
-  myFunction.prototype.otherFunction = function () {};
-                       ^^^^^^^^^^^^^
-*/
-
 describe('Code info util', function () {
   var detectCodeInfo = require('../../lib/util/codeinfo');
 
