@@ -12,7 +12,7 @@ var paths = {
 gulp.task('default', ['test', 'watch']);
 
 gulp.task('watch', function () {
-  gulp.watch([paths.src, paths.test], {interval: 500}, ['lint', 'test']);
+  gulp.watch([paths.src, paths.test], {interval: 500}, ['test']);
 });
 
 gulp.task('test', function () {
