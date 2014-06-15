@@ -10,7 +10,7 @@ var paths = {
 };
 
 gulp.task('default', ['dev']);
-gulp.task('dev', ['watch']);
+gulp.task('dev', ['test', 'watch']);
 
 gulp.task('watch', function () {
   gulp.watch([paths.src, paths.test], {interval: 500}, ['test']);

@@ -5,7 +5,7 @@
   "curly": false,
   "eqeqeq": true,
   "esnext": false,
-  "evil": true,
+  "evil": false,
   "forin": false,
   "freeze": true,
   "immed": true,
