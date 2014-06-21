@@ -1,7 +1,7 @@
 var should = require('should');
 
 /**
- * @todo Should be documentated per function object...
+ * @todo Document each item on an object
  *
  * @example
  * exports = {
