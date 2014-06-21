@@ -8,7 +8,7 @@ var fs = require('fs');
 describe('File parser', function () {
   var fileParser = require('../../lib/parsers/file')
     , oldWorkingDir = process.cwd()
-    , dir = process.cwd() + '/test/parsers/files/';
+    , dir = process.cwd() + '/test/files/';
 
   // Self asserting files
   var assert1 = require(dir + 'assert1')
