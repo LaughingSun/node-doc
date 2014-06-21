@@ -344,7 +344,7 @@ describe('Code info util', function () {
  *
  * @param info    {Object}           The object with information about the code.
  * @param access  {String}           What the access should be.
- * @param exports {Boolean}          Wether or not expors should be true.
+ * @param exports {Boolean}          Whether or not expors should be true.
  * @param type    {String|Undefined} What the type should be.
  * @param name    {String|Undefined} What the name should be.
  */
