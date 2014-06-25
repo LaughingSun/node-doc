@@ -220,6 +220,11 @@ describe('Code info util', function () {
       check(info, 'public', true, 'Function', undefined);
     });
 
+    it('should detect a function assigned to module.exports with param', function () {
+      var info = detectCodeInfo('module.exports = function (param) {};');
+      check(info, 'public', true, 'Function', undefined);
+    });
+
     it('should detect a named function assigned to module.exports', function () {
       var info = detectCodeInfo('module.exports = function myFunction () {};');
       check(info, 'public', true, 'Function', 'myFunction');
