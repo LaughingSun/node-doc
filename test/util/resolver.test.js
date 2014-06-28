@@ -1,10 +1,9 @@
 var path = require('path')
-  , should = require('should')
-  , mock = require('mock-fs');
+  , should = require('should');
 
 describe('resolveRequireFile', function () {
   var resolveRequireFile = require('../../lib/util/resolver')
-    , dir = process.cwd() + '/';
+    , dir = process.cwd() + '/test/files/resolver/';
 
   /**
    * Put a require call around a path
@@ -46,21 +45,14 @@ describe('resolveRequireFile', function () {
   });
 
   it('should add index.js if the path is an directory and check if it exists', function () {
-    var file = dir + 'lib';
+    var file = dir + 'notFound';
     var requirePath = resolveRequireFile(r(file), dir);
     should.equal(requirePath, undefined);
   });
 
-  // With file!
   it('should add index.js if the path is an directory', function () {
-    mock({
-      'lib/index.js': 'modules.exports = "Smile, :)"'
-    });
-
     var file = dir + 'lib';
     var requirePath = resolveRequireFile(r(file), dir);
     requirePath.should.equal(file + '/index.js');
-
-    mock.restore();
   });
 });
