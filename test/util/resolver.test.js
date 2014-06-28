@@ -7,12 +7,13 @@ describe('resolveRequireFile', function () {
     , dir = process.cwd() + '/';
 
   /**
-   * Return require around a path
+   * Put a require call around a path
    *
-   * @param requirePath {String} The path to put in the require statement.
+   * @param  path {String} The path to put in the require call.
+   * @return      {String} A require call around the path.
    */
-  function r (requirePath) {
-    return 'require(\'' + requirePath + '\');';
+  function r (path) {
+    return 'require(\'' + path + '\');';
   }
 
   it('should accept an absolute path', function () {
