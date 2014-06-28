@@ -19,7 +19,7 @@ describe('Code info util', function () {
       check(info, 'public', false, 'String', 'myVariable');
     });
 
-    it('should detect a string assigned to a variable', function () {
+    it('should detect a string assigned to a private constant', function () {
       var info = detectCodeInfo('var _privateVariable = "string";');
       check(info, 'private', false, 'String', '_privateVariable');
     });
