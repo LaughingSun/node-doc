@@ -3,6 +3,7 @@ var gulp = require('gulp')
   , jscs = require('gulp-jscs')
   , mocha = require('gulp-mocha');
 
+// All paths used
 var paths = {
   src: './lib/**/*.js',
   test: './test/**/*.test.js',
@@ -12,10 +13,12 @@ var paths = {
 gulp.task('default', ['dev']);
 gulp.task('dev', ['test', 'watch']);
 
+// Watch source & test files and test on any changes
 gulp.task('watch', function () {
   gulp.watch([paths.src, paths.watchTest], ['test']);
 });
 
+// Run tests
 gulp.task('test', function () {
   gulp.src(paths.test)
     .pipe(mocha({
@@ -31,6 +34,7 @@ gulp.task('test', function () {
     });
 });
 
+// Lint sources files
 gulp.task('lint', function () {
   gulp.src(paths.src)
     .pipe(jshint())
