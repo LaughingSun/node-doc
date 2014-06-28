@@ -1,12 +1,11 @@
-var path = require('path')
-  , gulp = require('gulp')
+var gulp = require('gulp')
   , jshint = require('gulp-jshint')
   , jscs = require('gulp-jscs')
   , mocha = require('gulp-mocha');
 
 var paths = {
-  src: path.join(__dirname, 'lib/**/*.js'),
-  test: path.join(__dirname, 'test/**/*.test.js')
+  src: './lib/**/*.js',
+  test: './test/**/*.test.js',
 };
 
 gulp.task('default', ['dev']);
