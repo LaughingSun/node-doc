@@ -6,13 +6,14 @@ var gulp = require('gulp')
 var paths = {
   src: './lib/**/*.js',
   test: './test/**/*.test.js',
+  watchTest: './test/**/*.js'
 };
 
 gulp.task('default', ['dev']);
 gulp.task('dev', ['test', 'watch']);
 
 gulp.task('watch', function () {
-  gulp.watch([paths.src, paths.test], ['test']);
+  gulp.watch([paths.src, paths.watchTest], ['test']);
 });
 
 gulp.task('test', function () {
