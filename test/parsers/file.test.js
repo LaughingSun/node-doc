@@ -1,150 +1,91 @@
-var path = require('path')
-  , should = require('should')
-  , mock = require('mock-fs');
-
-// TEMP, Mock-fs bug: https://github.com/tschaub/mock-fs/issues/12
-var fs = require('fs');
+var should = require('should');
 
 describe('File parser', function () {
   var fileParser = require('../../lib/parsers/file')
-    , oldWorkingDir = process.cwd()
-    , dir = process.cwd() + '/test/files/';
-
-  // Self asserting files
-  var assert1 = require(dir + 'assert1')
-    , assert1File = fs.readFileSync(dir + 'assert1.js')
-    , assert2 = require(dir + 'assert2')
-    , assert2File = fs.readFileSync(dir + 'assert2.js');
-
-  before(function () {
-    process.chdir(dir);
-  });
-
-  after(function () {
-    process.chdir(oldWorkingDir);
-  });
-
-  afterEach(function () {
-    mock.restore();
-  });
+    , root = process.cwd() + '/test/files/file/';
 
   describe('Options', function () {
-    var file = dir + 'assert.js'
-      , assert = assert1;
+    var file = root + 'options/assert.js'
+      , assert = require(file);
 
-    // TEMP, Mock-fs bug: https://github.com/tschaub/mock-fs/issues/12
-    // When fixed, just do it 1 time in describe file parser, and drop afterEach restore
-    beforeEach(function () {
-      mock({
-        'assert.js': assert1File
-      });
-    });
-
-    it('should default to hiding private comments', function (cb) {
+    it.skip('should allow options to be skipped', function (cb) {
       fileParser(file, function (err, doc) {
         assert(err, doc, false, cb);
       });
     });
 
-    it('should accept only a boolean as options', function (cb) {
-      fileParser(file, true, function (err, doc) {
-        assert(err, doc, true, cb);
+    it('should accept an object as options', function (cb) {
+      fileParser(file, {private: false}, function (err, doc) {
+        assert(err, doc, false, cb);
       });
     });
 
-    it('should accept an object as options', function (cb) {
+    it('should accept an object as options with private true', function (cb) {
       fileParser(file, {private: true}, function (err, doc) {
         assert(err, doc, true, cb);
       });
     });
   });
 
-  describe('parseRequires', function () {
-    /** @todo parseRequires tests! */
-  });
+  describe('Requires', function () {
+    var dir = root + 'requires/'
+      , assert = require(dir + 'assert');
 
-  describe('Namespaces', function () {
-    var file = dir + 'index.js';
-
-    it('should accept multiple namespaces', function (cb) {
-      mock({
-        'index.js': [
-          'var getPath = require("./lib/getPath")',
-          '  , reversePath = require("./lib/reversePath");',
-          '',
-          'var myPath = getPath();',
-          'var reversedPath = reversedPath(myPath);',
-          '',
-          'module.exports = reversedPath;'
-        ].join('\n'),
-        'lib/getPath.js': [
-          '/** @return {String}  */',
-          'module.exports = function getPath () {',
-          ' return "Some path";',
-          '}'
-        ].join('\n'),
-        'lib/reversePath.js': [
-          // Aw, bad maintainer, no documentation!
-          'module.exports = function reversePath (path) {',
-          ' return return path.split("").reverse().join("");',
-          '}'
-        ].join('\n')
-      });
-
-      fileParser(file, function (err, doc) {
-        doc.name.should.equal('files');
-        doc.exports.should.equal('reversedPath');
-        doc.ns.should.be.an.Object.and.have.properties('getPath', 'reversePath');
-
-        var getPath = doc.ns.getPath;
-        getPath.name.should.equal('getPath');
-        getPath.exports.should.equal('getPath');
-
-        [doc.functions.getPath, getPath.functions.getPath].forEach(function (getPath, i) {
-          getPath.should.be.an.Object.and.have.properties('access', 'exports', 'type', 'name');
-          getPath.access.should.equal('public');
-          getPath.exports.should.equal(true);
-          getPath.type.should.equal('Function');
-          getPath.name.should.equal('getPath');
-          getPath.return.should.be.an.Object.and.have.property('type', 'String');
-
-          // First time it's required and it should say so
-          if (i === 0) getPath.required.should.equal(true);
-        });
-
-        var reversePath = doc.ns.reversePath;
-        reversePath.name.should.equal('reversePath');
-        reversePath.exports.should.equal('reversePath');
-
-        cb();
+    it('should doc and require file starting with ./', function (cb) {
+      fileParser(dir + 'same-dir-module.js', function (err, doc) {
+        assert(err, doc, 'same-dir-module', cb);
       });
     });
 
-    it.skip('should handle todo tags in an empty doc', function (cb) {
-      mock({
-        'index.js': [
-          '/** @todo Something */',
-          'module.exports = require("./lib/nothing");'
-        ].join('\n'),
-        'lib/nothing.js': ''
+    it('should doc and require file starting with ../', function (cb) {
+      fileParser(dir + 'lower/upper-dir-module.js', function (err, doc) {
+        assert(err, doc, 'upper-dir-module', cb);
       });
+    });
+
+    it.skip('should doc and require file starting with /', function (cb) {
+      // Can't use variables in require call yet
+
+      fileParser(dir + 'absolute-dir-module.js', function (err, doc) {
+        assert(err, doc, 'absolute-dir-module', cb);
+      });
+    });
+
+    it('should not doc Node/NPM modules even in case of holder file', function (cb) {
+      fileParser(dir + 'npm-module.js', function (err, doc) {
+        should.equal(err, undefined);
+        doc.should.be.an.Object.and.have.property('name', 'npm-module');
+        cb();
+      });
+    });
+  });
+
+  describe('Namespaces', function () {
+    var dir = root + 'namespaces/';
+
+    it.skip('should accept multiple namespaces', function (cb) {
+      var file = dir + 'multi-ns-export.js'
+        , assert = require(dir + '/multi-ns-assert.js');
 
       fileParser(file, function (err, doc) {
-        cb(new Error('Not working yet!'));
+        assert(err, doc, true, cb);
+      });
+    });
+
+    it.skip('should accept multiple namespaces with them being exported', function (cb) {
+      var file = dir + 'multi-ns-no-export.js'
+        , assert = require(dir + '/multi-ns-assert.js');
+
+      fileParser(file, function (err, doc) {
+        assert(err, doc, false, cb);
       });
     });
 
     it('should not add empty document object to the namespaces object', function (cb) {
-      mock({
-        'index.js': [
-          'var nothing = require("./lib/nothing");'
-        ].join('\n'),
-        'lib/nothing.js': ''
-      });
-
-      fileParser(file, function (err, doc) {
+      fileParser(dir + 'empty-require.js', function (err, doc) {
         doc.should.be.an.Object.and.have.properties('name');
-        doc.name.should.equal('files');
+        doc.name.should.equal('empty-require');
+        should.equal(doc.namespaces, undefined);
 
         cb();
       });
@@ -152,21 +93,9 @@ describe('File parser', function () {
   });
 
   it.skip('should not add an global todo to a variable', function (cb) {
-    mock({
-      'index.js': [
-        '/** @todo Something we still haven\'t done yet. */',
-        '',
-        'var nothing = require("./lib/nothing");'
-      ].join('\n'),
-      'lib/nothing.js': ''
-    });
-
-    fileParser(file, function (err, doc) {
-      console.log();
-      console.log('result doc', doc);
-
+    fileParser(root + 'global-todo.js', function (err, doc) {
       doc.should.be.an.Object.and.have.properties('name', 'todos');
-      doc.name.should.equal('files');
+      doc.name.should.equal('global-todo');
       doc.todos.should.be.an.Object.and.have.properties('global');
       doc.todos.global.should.be.an.Array.and.have.lengthOf(1);
       doc.todos.global[0].should.equal('Something we still haven\'t done yet.');
@@ -176,17 +105,8 @@ describe('File parser', function () {
   });
 
   it('should accept a file without exports', function (cb) {
-    mock({
-      'index.js': [
-        '/** @constructor */',
-        'function MyConstructor () {',
-        ' return this;',
-        '}'
-      ].join('\n')
-    });
-
-    fileParser(dir + 'index.js', function (err, doc) {
-      doc.name.should.equal(path.basename(dir));
+    fileParser(root + 'no-exports.js', function (err, doc) {
+      doc.name.should.equal('no-exports');
       doc.functions.should.be.an.Object.and.have.property('MyConstructor');
 
       should.equal(doc.ns, undefined);
@@ -201,72 +121,52 @@ describe('File parser', function () {
     });
   });
 
-  it('should not doc Node/NPM modules even in case of holder file', function (cb) {
-    mock({
-      'index.js': [
-        'module.exports = require("fs");', // Should not doc this require
-      ].join('\n')
-    });
-
-    fileParser(dir + 'index.js', function (err, doc) {
-      should.equal(err, undefined);
-      should.equal(doc, undefined);
-      cb();
-    });
-  });
-
-  it('should throw if require file is not found', function (cb) {
-    mock({
-      'index.js': 'module.exports = require("./notFound.js");'
-    });
-
-    fileParser(dir + 'index.js', function (err, doc) {
-      err.should.be.an.Error;
-      err.message.should.equal('File "' + dir + 'notFound.js" not found');
-      cb();
-    });
-  });
-
   describe('Errors', function () {
-    var file = dir + 'index.js';
+    var dir = root + 'errors/';
 
     it('should return undefined if the file is empty', function (cb) {
-      mock({
-        'index.js': ''
-      });
-
-      fileParser(file, function (err, doc) {
+      fileParser(dir + 'empty.js', function (err, doc) {
         should.equal(doc, undefined);
         cb();
       });
     });
 
     it('should return undefined if the file is empty with holder file', function (cb) {
-      mock({
-        'index.js': [
-          'module.exports = require("./index2");'
-        ].join('\n'),
-        'index2.js': ''
-      });
-
-      fileParser(file, function (err, doc) {
+      fileParser(dir + 'index.js', function (err, doc) {
         should.equal(doc, undefined);
         cb();
       });
     });
 
-    it('should return an error if it has a wrong tag', function (cb) {
-      mock({
-        'index.js': [
-          '/** ',
-          ' * @wrongTag',
-          ' */'
-        ].join('\n')
+    it.skip('should return an error if an undocumented variable gets exported', function (cb) {
+      fileParser(dir + 'export-variable-no-doc.js', function (err) {
+        // Currently not throwing an error but returning doc with only a name
+        err.should.be.an.Error;
+        err.message.should.equal('Variable assigned to exports that is not documented');
+        cb();
       });
+    });
 
-      fileParser(file, function (err) {
+    it('should return an error if it has a wrong tag', function (cb) {
+      fileParser(dir + 'wrong-tag.js', function (err) {
         err.should.be.an.Error;
         err.message.should.equal('Unknown tag: wrongTag. On line 2 of the file');
+        cb();
+      });
+    });
+
+    it('should return an error if the doesn\'t exists', function (cb) {
+      fileParser(dir + 'notFound.js', function (err) {
+        err.should.be.an.Error;
+        err.message.should.equal('File "' + dir + 'notFound.js" not found');
+        cb();
+      });
+    });
+
+    it.skip('should throw if require file is not found with holder file', function (cb) {
+      fileParser(dir + 'index2.js', function (err, doc) {
+        err.should.be.an.Error;
+        err.message.should.equal('File "' + dir + 'notFound.js" not found');
         cb();
       });
     });
@@ -275,16 +175,6 @@ describe('File parser', function () {
       fileParser([], function (err) {
         err.should.be.an.Error;
         err.message.should.equal('Input file location not a string');
-        cb();
-      });
-    });
-
-    it('should return an error if the doesn\'t exists', function (cb) {
-      var file = dir + 'notFound.js';
-
-      fileParser(file, function (err) {
-        err.should.be.an.Error;
-        err.message.should.equal('File "' + file + '" not found');
         cb();
       });
     });
