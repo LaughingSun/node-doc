@@ -1,7 +1,7 @@
 var should = require('should');
 
-describe('Construct', function () {
-  var constructDoc = require('../lib/construct');
+describe('Constructor', function () {
+  var constructDoc = require('../lib/constructor');
 
   it('should construct a documentation object', function () {
     var doc = constructDoc({name: 'My app'}, [], undefined, {});
