@@ -245,6 +245,11 @@ describe('Code info util', function () {
       check(info, 'public', true, 'Function', undefined, false);
     });
 
+    it('should detect a function assigned to module.exports with multiple params', function () {
+      var info = detectCodeInfo('module.exports = function (param1, param2) {};');
+      check(info, 'public', true, 'Function', undefined, false);
+    });
+
     it('should detect a named function assigned to module.exports', function () {
       var info = detectCodeInfo('module.exports = function myFunction () {};');
       check(info, 'public', true, 'Function', 'myFunction', false);
