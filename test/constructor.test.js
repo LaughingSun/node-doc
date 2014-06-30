@@ -21,7 +21,7 @@ describe('Constructor', function () {
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
       doc.author.should.equal('Thomas de Zeeuw');
-      doc.description.should.equal('My awesome application');
+      doc.desc.should.equal('My awesome application');
       doc.license.should.equal('MIT');
       doc.version.should.equal('0.0.0');
     });
@@ -39,7 +39,7 @@ describe('Constructor', function () {
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
       should.equal(doc.author, undefined);
-      should.equal(doc.description, undefined);
+      should.equal(doc.desc, undefined);
       should.equal(doc.license, undefined);
       should.equal(doc.version, undefined);
     });
