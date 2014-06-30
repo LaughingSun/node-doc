@@ -3,11 +3,12 @@
 ## Change log
 
 ### Upcoming
-- *BREAKING* All parsers now accept an callback as last params. file/comment/tag object. Information about the file/comment/tag follow the we're using spec.
-- Added a global todo list
-- Added global examples
-- Improve code information detection
-- Automaticly makes namespaces for required local modules
+- *BREAKING* Changed api for both file parser and exposed api.
+- *BREAKING* Only file parser & api are exposed.
+- *BREAKING* Dropped @access, @private & @public tag.
+- Improved code information detection.
+- Automaticly makes namespaces for required local modules.
+- Automaticly detects if a function is private or not.
 
 ### 0.1.4
 - Fixed optional sub param
