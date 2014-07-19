@@ -9,6 +9,7 @@
 - Improved code information detection.
 - Automaticly makes namespaces for required local modules.
 - Automaticly detects if a function is private or not.
+- Automaticly adds project information from package.json
 
 ### 0.1.4
 - Fixed optional sub param
