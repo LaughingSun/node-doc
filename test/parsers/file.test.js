@@ -138,6 +138,18 @@ describe('File parser', function () {
       });
     });
 
+    it.skip('should return an error if an required file is not found', function (cb) {
+      var file = dir + 'not-found-module.js';
+
+      console.log(file)
+
+      fileParser(file, function (err, doc) {
+        err.should.be.an.Error;
+        err.message.should.equal('File "' + file + '" not found');
+        cb();
+      });
+    });
+
     it.skip('should return an error if an undocumented variable gets exported', function (cb) {
       fileParser(dir + 'export-variable-no-doc.js', function (err) {
         // Currently not throwing an error but returning doc with only a name
