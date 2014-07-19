@@ -16,7 +16,7 @@ module.exports = function (err, doc, cb) {
 
   doc.should.be.an.Object;
   doc.name.should.equal(pkg.name);
-  doc.author.should.equal(pkg.author);
+  doc.author.should.be.an.Object.and.have.property('name', pkg.author);
   doc.desc.should.equal(pkg.description);
   doc.license.should.equal(pkg.license);
   doc.version.should.equal(pkg.version);

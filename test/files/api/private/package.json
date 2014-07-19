@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "description": "My awesome assertion",
   "main": "assert.js",
-  "author": "Thomas de Zeeuw <thomasdezeeuw@gmail.com> (https://thomasdezeeuw.nl/)",
+  "author": "Thomas de Zeeuw",
   "license": "MIT"
 }
