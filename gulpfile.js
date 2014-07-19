@@ -28,15 +28,11 @@ gulp.task('test', function () {
       reporter: 'dot',
       timeout: 50
     }))
-    .on('error', function (err) {
-      if (err.message.indexOf('failed.') < 0) {
-        console.error(err.stack); // no double logging the error
-        console.log('');
-      }
-    });
+    // Mocha already logs the errors
+    .on('error', function (err) {});
 });
 
-// Lint sources files
+// Lint source files
 gulp.task('lint', function () {
   gulp.src(paths.src)
     .pipe(jshint())
