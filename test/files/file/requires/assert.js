@@ -9,15 +9,12 @@ var should = require('should');
  * @param cb   {Function} The callback from Mocha.
  */
 module.exports = function (err, doc, name, cb) {
-  //console.log(err, doc);
-
   should.equal(err, undefined);
   doc.should.be.an.Object;
   doc.name.should.equal(name);
 
   var exports = doc.exports;
   exports.should.be.an.Object;
-  //exports.name.should.equal('NOT WORKING');
   exports.desc.should.equal('Assert this file.');
   exports.access.should.equal('public');
   exports.constant.should.equal(false);
