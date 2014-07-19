@@ -13,10 +13,8 @@ cli
   .option('-p, --private', 'Show private functions and comments.')
   .parse(process.argv);
 
-if (cli.args.length === 0) cli.help();
-
 var options = {
-  output = path.resolve(process.cwd(), cli.output || 'doc'),
+  output: path.resolve(process.cwd(), cli.output || 'doc'),
   result: cli.result || 'markdown',
   private: cli.private || false
 };
