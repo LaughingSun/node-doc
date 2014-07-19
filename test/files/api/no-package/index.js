@@ -10,9 +10,6 @@ var should = require('should');
 module.exports = function (err, doc, cb) {
   should.equal(err, undefined);
 
-  doc.should.be.an.Object.have.have.property('main.json');
-  doc = doc['main.json'];
-
   doc.should.be.an.Object;
   doc.name.should.equal('no-package');
 
