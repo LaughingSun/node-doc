@@ -1,8 +1,8 @@
 # Node doc
 
-[![Build Status](https://travis-ci.org/Thomasdezeeuw/node-doc.svg?branch=master)](https://travis-ci.org/Thomasdezeeuw/node-doc)
-[![Dependency Status](https://gemnasium.com/Thomasdezeeuw/node-doc.svg)](https://gemnasium.com/Thomasdezeeuw/node-doc)
-[![Coverage Status](https://coveralls.io/repos/Thomasdezeeuw/node-doc/badge.png)](https://coveralls.io/r/Thomasdezeeuw/node-doc)
+[![Build Status](https://img.shields.io/travis/Thomasdezeeuw/node-doc.svg)](https://travis-ci.org/Thomasdezeeuw/node-doc)
+[![Dependency Status](https://img.shields.io/gemnasium/Thomasdezeeuw/node-doc.svg)](https://gemnasium.com/Thomasdezeeuw/node-doc)
+[![Coverage Status](https://img.shields.io/coveralls/Thomasdezeeuw/node-doc.svg)](https://coveralls.io/r/Thomasdezeeuw/node-doc)
 
 
 # Under active development, code on master doesn't work. Use the v0.1.4 tag code or use NPM.
