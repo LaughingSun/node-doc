@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha test/**/*.test.js",
     "coverage": "NODE_ENV=test ./node_modules/istanbul/lib/cli.js cover ./node_modules/.bin/_mocha 'test/**/*.test.js'",
-    "doc": "nodedoc"
+    "doc": "node ./bin/cli.js"
   },
   "repository": {
     "type": "git",
