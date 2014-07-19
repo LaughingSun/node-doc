@@ -29,7 +29,7 @@ gulp.task('test', function () {
       timeout: 50
     }))
     // Mocha already logs the errors
-    .on('error', function (err) {});
+    .on('error', function () {});
 });
 
 // Lint source files
@@ -37,5 +37,5 @@ gulp.task('lint', function () {
   gulp.src(paths.src)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(jscs())
+    .pipe(jscs());
 });
