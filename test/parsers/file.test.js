@@ -44,7 +44,9 @@ describe('File parser', function () {
     });
 
     it.skip('should doc and require file starting with /', function (cb) {
-      // Can't use variables in require call yet
+      // Can't use variables in require call yet,
+      // so currently we're not documenting any require calls with variables
+      // see lib/parsers/file.js; getRequirePath function
 
       fileParser(dir + 'absolute-dir-module.js', function (err, doc) {
         assert(err, doc, 'absolute-dir-module', cb);
