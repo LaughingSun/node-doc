@@ -55,7 +55,7 @@ describe('Api', function () {
   });
 
   it('should convert the documentation object to Markdown');
-  
+
   it('should convert the documentation object to HTML');
 
   it('should save the files if output is specified');

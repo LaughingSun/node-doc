@@ -111,10 +111,8 @@ describe('File parser', function () {
       doc.name.should.equal('no-exports');
       doc.functions.should.be.an.Object.and.have.property('MyConstructor');
 
-      should.equal(doc.ns, undefined);
-
       var MyConstructor = doc.functions.MyConstructor;
-      MyConstructor.should.be.an.Object.and.have.properties('type', 'name');
+      MyConstructor.should.be.an.Object;
       MyConstructor.type.should.equal('Constructor');
       MyConstructor.name.should.equal('MyConstructor');
       MyConstructor.access.should.equal('public');
