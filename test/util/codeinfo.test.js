@@ -192,6 +192,11 @@ describe('Code info util', function () {
       var info = detectCodeInfo('function _myFunction () {}');
       check(info, 'private', false, 'Function', '_myFunction', false);
     });
+
+    it('should detect an constructor', function () {
+      var info = detectCodeInfo('function MyFunction () {}');
+      check(info, 'public', false, 'Constructor', 'MyFunction', false);
+    });
   });
 
   describe('module.exports assignment', function () {
