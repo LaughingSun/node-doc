@@ -175,15 +175,6 @@ describe('File parser', function () {
       });
     });
 
-    it.skip('should return an error if an undocumented variable gets exported', function (cb) {
-      fileParser(dir + 'export-variable-no-doc.js', function (err) {
-        // Currently not throwing an error but returning doc with only a name
-        err.should.be.an.Error;
-        err.message.should.equal('Variable assigned to exports that is not documented');
-        cb();
-      });
-    });
-
     it('should return an error if it has a wrong tag', function (cb) {
       fileParser(dir + 'wrong-tag.js', function (err) {
         err.should.be.an.Error;
