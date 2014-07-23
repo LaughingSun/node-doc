@@ -18,7 +18,7 @@ function assert (err, doc, showPrivate, cb) {
 
   _assertParams(assert.params);
 
-  // Also the private internal function
+  // Also test private internal function
   if (showPrivate) {
     doc.functions.should.be.an.Object.and.have.property('_assertParams');
     var assertParams = doc.functions._assertParams;

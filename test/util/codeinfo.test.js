@@ -1,15 +1,5 @@
 var should = require('should');
 
-/**
- * @todo Document each item on an object
- *
- * @example
- * exports = {
- *   function: function () {},
- *   variable: 'string'
- * };
- */
-
 describe('Code info util', function () {
   var detectCodeInfo = require('../../lib/util/codeinfo');
 
@@ -387,11 +377,12 @@ describe('Code info util', function () {
 /**
  * Check an info object.
  *
- * @param info    {Object}           The object with information about the code.
- * @param access  {String}           What the access should be.
- * @param exports {Boolean}          Whether or not expors should be true.
- * @param type    {String|Undefined} What the type should be.
- * @param name    {String|Undefined} What the name should be.
+ * @param info     {Object}           The object with information about the code.
+ * @param access   {String}           What the access should be.
+ * @param exports  {Boolean}          Whether or not expors should be true.
+ * @param type     {String|Undefined} What the type should be.
+ * @param name     {String|Undefined} What the name should be.
+ * @param constant {Boolean}          What the constant should be.
  */
 function check (info, access, exports, type, name, constant) {
   info.should.be.an.Object.and.have.properties('access', 'exports', 'type', 'name');
