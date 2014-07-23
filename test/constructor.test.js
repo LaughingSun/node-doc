@@ -4,7 +4,7 @@ describe('Constructor', function () {
   var constructDoc = require('../lib/constructor');
 
   it('should construct a documentation object', function () {
-    var doc = constructDoc({name: 'My app'}, [], undefined, {});
+    var doc = constructDoc({name: 'My app'}, [], {});
     doc.should.be.an.Object.and.have.property('name', 'My app');
   });
 
@@ -16,7 +16,7 @@ describe('Constructor', function () {
         description: 'My awesome application',
         license: 'MIT',
         version: '0.0.0'
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
@@ -34,7 +34,7 @@ describe('Constructor', function () {
         license: 'MIT',
         version: '0.0.0',
         ns: true
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
@@ -50,7 +50,7 @@ describe('Constructor', function () {
       var doc = constructDoc({
         name: 'My app',
         author: 'Thomas de Zeeuw <thomasdezeeuw@gmail.com> (https://thomasdezeeuw.nl/)'
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
@@ -64,7 +64,7 @@ describe('Constructor', function () {
       var doc = constructDoc({
         name: 'My app',
         author: 'Thomas de Zeeuw (https://thomasdezeeuw.nl/) <thomasdezeeuw@gmail.com>'
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
@@ -78,7 +78,7 @@ describe('Constructor', function () {
       var doc = constructDoc({
         name: 'My app',
         author: 'Thomas de Zeeuw <thomasdezeeuw@gmail.com>'
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
@@ -91,7 +91,7 @@ describe('Constructor', function () {
       var doc = constructDoc({
         name: 'My app',
         author: 'Thomas de Zeeuw (https://thomasdezeeuw.nl/)'
-      }, [], undefined, {});
+      }, [], {});
 
       doc.should.be.an.Object;
       doc.name.should.equal('My app');
