@@ -1,6 +1,5 @@
 /**
  * Assert this file's document object.
- * @public
  *
  * @param doc         {Object}  Document object.
  * @param showPrivate {Boolean} Wether or not to test private properties.

@@ -3,7 +3,7 @@ var should = require('should');
 describe('Comment parser', function () {
   var commentParser = require('../../lib/parsers/comment');
 
-  describe('access', function () {
+  describe.skip('access', function () {
     it('should accept access tag', function () {
       commentParser([
         '/**',
@@ -180,7 +180,6 @@ describe('Comment parser', function () {
   describe('deprecated', function () {
     it('should accept deprecated', function () {
       commentParser([
-        ' * @access public',
         ' * @deprecated'
       ].join('\n'), {
         type: 'function',
@@ -195,7 +194,6 @@ describe('Comment parser', function () {
 
     it('should accept deprecated with a message', function () {
       commentParser([
-        ' * @access public',
         ' * @deprecated Use Alien instead.'
       ].join('\n'), {
         type: 'function',

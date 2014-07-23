@@ -3,7 +3,7 @@ var should = require('should');
 describe('Tag parser', function () {
   var parseTag = require('../../lib/parsers/tag');
 
-  describe('access', function () {
+  describe.skip('access', function () {
     it('should accept access with public tag', function () {
       parseTag('@access public', function (err, tag) {
         tag.should.be.an.Object.and.have.properties('type', 'value');
