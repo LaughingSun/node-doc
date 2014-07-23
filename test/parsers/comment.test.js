@@ -100,7 +100,7 @@ describe('Comment parser', function () {
     });
   });
 
-  describe('constant', function () {
+  describe.skip('constant', function () {
     it('should accept a constant', function () {
       commentParser([
         ' * @constant'

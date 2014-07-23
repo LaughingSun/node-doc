@@ -72,7 +72,7 @@ describe('Tag parser', function () {
     });
   });
 
-  describe('constant', function () {
+  describe.skip('constant', function () {
     it('should accept constant tag', function () {
       parseTag('@constant MY_CONSTANT', function (err, tag) {
         tag.should.be.an.Object.and.have.properties('type', 'value');
