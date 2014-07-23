@@ -16,10 +16,6 @@ module.exports = function (err, doc, exported, cb) {
   if (exported) {
     doc.name.should.equal('multi-ns-export');
     doc.exports.should.equal('exportFunction');
-
-    // no functions?!
-
-
   } else {
     doc.name.should.equal('multi-ns-no-export');
   }
@@ -29,24 +25,11 @@ module.exports = function (err, doc, exported, cb) {
   ns1.should.be.an.Object;
   ns1.name.should.equal('ns-1');
 
-  console.log(ns1.functions);
-
   var ns2 = doc.ns['ns-2'];
   ns2.should.be.an.Object;
   ns2.name.should.equal('ns-2');
 
-  console.log(ns2.functions);
-
   return cb(new Error('Function names not correct'));
-
-
-  console.log();
-  console.log(doc);
-
-  //console.log('functions', doc.functions);
-  //console.log('ns', doc.ns);
-
-
 /*
   doc.name.should.equal('files');
   doc.exports.should.equal('reversedPath');

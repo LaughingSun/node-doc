@@ -8,7 +8,7 @@ describe('File parser', function () {
     var file = root + 'options/assert.js'
       , assert = require(file);
 
-    it.skip('should allow options to be skipped', function (cb) {
+    it('should allow options to be skipped', function (cb) {
       fileParser(file, function (err, doc) {
         assert(err, doc, false, cb);
       });
@@ -47,7 +47,6 @@ describe('File parser', function () {
       // Can't use variables in require call yet,
       // so currently we're not documenting any require calls with variables
       // see lib/parsers/file.js; getRequirePath function
-
       fileParser(dir + 'absolute-dir-module.js', function (err, doc) {
         assert(err, doc, 'absolute-dir-module', cb);
       });

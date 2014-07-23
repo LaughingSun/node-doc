@@ -8,7 +8,6 @@ describe('Save', function () {
     , tmpPath = path.resolve(dir, 'tmp.json')
     , tmpFile;
 
-
   before(function () {
     tmpFile = fs.readFileSync(tmpPath, 'utf8');
   });
