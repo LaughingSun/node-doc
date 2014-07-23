@@ -121,6 +121,32 @@ describe('File parser', function () {
     });
   });
 
+  it('should detect code info without any documentation', function (cb) {
+    fileParser(root + 'code-info.js', function (err, doc) {
+      doc.name.should.equal('code-info');
+      doc.functions.should.be.an.Object.and.have.property('MyConstructor');
+      doc.constants.should.be.an.Object.and.have.property('MY_CONSTANT');
+
+      var MyConstructor = doc.functions.MyConstructor;
+      MyConstructor.should.be.an.Object;
+      MyConstructor.access.should.equal('public');
+      MyConstructor.constant.should.equal(false);
+      MyConstructor.exports.should.equal(false);
+      MyConstructor.name.should.equal('MyConstructor');
+      MyConstructor.type.should.equal('Constructor');
+
+      var myConstant = doc.constants.MY_CONSTANT;
+      myConstant.should.be.an.Object;
+      myConstant.access.should.equal('public');
+      myConstant.constant.should.equal(true);
+      myConstant.exports.should.equal(false);
+      myConstant.name.should.equal('MY_CONSTANT');
+      myConstant.type.should.equal('Number');
+
+      cb();
+    });
+  });
+
   describe('Errors', function () {
     var dir = root + 'errors/';
 
