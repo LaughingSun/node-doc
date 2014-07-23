@@ -159,7 +159,7 @@ describe('Comment parser', function () {
     });
   });
 
-  describe('constructor', function () {
+  describe.skip('constructor', function () {
     it('should accept constructor', function () {
       commentParser([
         '/**',
