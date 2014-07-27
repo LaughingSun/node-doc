@@ -363,6 +363,11 @@ describe('Code info util', function () {
     });
   });
 
+  it('should detect callback function', function () {
+    var info = detectCodeInfo('fs.readFile(\'./nothing.js\', function (err, file) {');
+    check(info, 'private', false, 'Callback', undefined, false);
+  });
+
   it('should set access to private with a name starting with _', function () {
     var info = detectCodeInfo('myVariable.prototype._privateVariable = "string";');
     check(info, 'private', false, 'String', '_privateVariable', false);
