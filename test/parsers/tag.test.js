@@ -3,47 +3,6 @@ var should = require('should');
 describe('Tag parser', function () {
   var parseTag = require('../../lib/parsers/tag');
 
-  describe.skip('access', function () {
-    it('should accept access with public tag', function () {
-      parseTag('@access public', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('access');
-        tag.value.should.equal('public');
-      });
-    });
-
-    it('should accept access with private tag', function () {
-      parseTag('@access private', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('access');
-        tag.value.should.equal('private');
-      });
-    });
-
-    it('should accept public tag', function () {
-      parseTag('@public', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('access');
-        tag.value.should.equal('public');
-      });
-    });
-
-    it('should accept private tag', function () {
-      parseTag('@private', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('access');
-        tag.value.should.equal('private');
-      });
-    });
-
-    it('should return an error on wrong access input', function () {
-      parseTag('@access wrong', function (err) {
-        err.should.be.an.Error;
-        err.message.should.equal('@access only supports public, private');
-      });
-    });
-  });
-
   describe('callback', function () {
     it('should accept callback tag', function () {
       parseTag('@callback myCallback', function (err, tag) {
@@ -68,65 +27,6 @@ describe('Tag parser', function () {
       parseTag('@callback', function (err) {
         err.should.be.an.Error;
         err.message.should.equal('@callback requires a name');
-      });
-    });
-  });
-
-  describe.skip('constant', function () {
-    it('should accept constant tag', function () {
-      parseTag('@constant MY_CONSTANT', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constant');
-        tag.value.should.be.an.Object.and.have.property('name', 'MY_CONSTANT');
-      });
-    });
-
-    it('should accept constant tag with type', function () {
-      parseTag('@constant MY_CONSTANT {Number}', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constant');
-        tag.value.should.be.an.Object.and.have.properties('name', 'type');
-        tag.value.name.should.equal('MY_CONSTANT');
-        tag.value.type.should.equal('Number');
-      });
-    });
-
-    it('should accept constant tag with description', function () {
-      parseTag('@constant MY_CONSTANT It\'s mine!', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constant');
-        tag.value.should.be.an.Object.and.have.properties('name', 'desc');
-        tag.value.name.should.equal('MY_CONSTANT');
-        tag.value.desc.should.equal('It\'s mine!');
-      });
-    });
-
-    it('should accept constant tag with type and description', function () {
-      parseTag('@constant MY_CONSTANT {Number} It\'s mine!', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constant');
-        tag.value.should.be.an.Object.and.have.properties('name', 'type', 'desc');
-        tag.value.name.should.equal('MY_CONSTANT');
-        tag.value.type.should.equal('Number');
-        tag.value.desc.should.equal('It\'s mine!');
-      });
-    });
-  });
-
-  describe.skip('constructor', function () {
-    it('should accept constructor tag', function () {
-      parseTag('@constructor', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constructor');
-        tag.value.should.equal(true);
-      });
-    });
-
-    it('should ignore anything after the constructor tag', function () {
-      parseTag('@constructor this gets ignored', function (err, tag) {
-        tag.should.be.an.Object.and.have.properties('type', 'value');
-        tag.type.should.equal('constructor');
-        tag.value.should.equal(true);
       });
     });
   });
