@@ -108,6 +108,7 @@ describe('File parser', function () {
   it('should accept a file without exports', function (cb) {
     fileParser(root + 'no-exports.js', function (err, doc) {
       doc.name.should.equal('no-exports');
+      should.equal(doc.exports, undefined);
       doc.functions.should.be.an.Object.and.have.property('MyConstructor');
 
       var MyConstructor = doc.functions.MyConstructor;
@@ -142,6 +143,14 @@ describe('File parser', function () {
       myConstant.name.should.equal('MY_CONSTANT');
       myConstant.type.should.equal('Number');
 
+      cb();
+    });
+  });
+
+  it('should be able to handle /** in code', function (cb) {
+    fileParser(root + 'comment-start-in-code.js', function (err, doc) {
+      doc.name.should.equal('comment-start-in-code');
+      should.equal(doc.exports, undefined);
       cb();
     });
   });
