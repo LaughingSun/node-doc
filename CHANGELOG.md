@@ -30,3 +30,6 @@
 
 ### 0.1.1
  - *BREAKING* Replace constructor property on object with type equals 'Constructor'.
+
+### 0.1.0
+ - Initial commit.
