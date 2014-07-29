@@ -10,7 +10,7 @@ describe('JSON converter', function () {
       , files = prepareJson(doc);
 
     files.should.be.an.Object.and.have.property('main.json');
-    files['main.json'].should.equal(JSON.stringify(doc));
+    files['main.json'].should.equal(JSON.stringify(doc, null, 2));
   });
 
   it('should add namespaces in it\'s own files', function () {
@@ -28,9 +28,9 @@ describe('JSON converter', function () {
       , files = prepareJson(doc);
 
     files.should.be.an.Object.and.have.properties('main.json', 'ns1.json', 'ns2.json');
-    files['ns1.json'].should.equal(JSON.stringify(doc.ns.ns1));
-    files['ns2.json'].should.equal(JSON.stringify(doc.ns.ns2));
+    files['ns1.json'].should.equal(JSON.stringify(doc.ns.ns1, null, 2));
+    files['ns2.json'].should.equal(JSON.stringify(doc.ns.ns2, null, 2));
     delete doc.ns;
-    files['main.json'].should.equal(JSON.stringify(doc));
+    files['main.json'].should.equal(JSON.stringify(doc, null, 2));
   });
 });
