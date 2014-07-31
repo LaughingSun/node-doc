@@ -26,3 +26,6 @@
 
 ## Issues
 - [ ] Doesn't support variables within require call in source code
+- [ ] Doesn't document exported object, can't deal with it yet
+
+## More in individual files with @todo tag
