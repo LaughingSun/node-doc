@@ -22,26 +22,6 @@ Requires Node.js and run ```npm install -g node-doc```
 
 ## Tags
 
-### Access
-
-```js
-/**
- * Private access.
- * @access private
- * or
- * @private
- */
-function privateFunction () {}
-
-/**
- * Public access.
- * @access public
- * or
- * @public
- */
-function publicFunction () {}
-```
-
 ### Callback
 
 ```js
@@ -67,29 +47,6 @@ function doAsync(stuff, cb) {
 
   cb(null, result);
 };
-```
-
-### Constant
-
-```js
-/**
- * A constant variable.
- * @constant name {Type} Description.
- *
- * example:
- * @constant MY_CONSTANT {Number} My constant number.
- */
-var MY_CONSTANT = 10;
-```
-
-### Constructor
-
-```js
-/**
- * Indicate that a function is a constructor.
- * @constructor
- */
-function Constructor () {}
 ```
 
 ### Deprecated
