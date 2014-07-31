@@ -33,4 +33,18 @@ describe('JSON converter', function () {
     delete doc.ns;
     files['main.json'].should.equal(JSON.stringify(doc, null, 2));
   });
+
+  it('should add todos in it\'s own file', function () {
+    var doc = {
+          name: 'my-app',
+          todos: {
+            global: ['Stuff', 'I', 'Need', 'To', 'Do']
+          }
+        }
+      , files = prepareJson(doc);
+
+    files.should.be.an.Object.and.have.property('main.json');
+    files['main.json'].should.equal(JSON.stringify(doc, null, 2));
+    files['todo.json'].should.equal(JSON.stringify(doc.todos, null, 2));
+  });
 });
