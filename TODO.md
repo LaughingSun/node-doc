@@ -1,6 +1,9 @@
 # Todo
 - [ ] HTML converter
 
+# Cleanup
+- [ ] Cleanup the mess that is comment parser
+
 # Enchantments
 
 - [ ] Option to ignore wrong tags
